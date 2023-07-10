@@ -47,6 +47,7 @@ class ViewController: UIViewController {
         collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.backgroundColor = .systemGray6
         
+        navigation.title = "Page: "
         let next = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextPage))
         self.navigation.rightBarButtonItem = next
         let back = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(prevPage))
