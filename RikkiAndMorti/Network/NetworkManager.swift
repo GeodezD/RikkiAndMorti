@@ -7,20 +7,7 @@
 
 import Foundation
 
-
-
-//enum Api: String {
-//    case url = "https://rickandmortyapi.com/api/character/?page="
-//    case urlPage = "https://rickandmortyapi.com/api/character/"
-//}
-
-
-
 class NetworkManager {
-    var page = 1
-    var string = "https://rickandmortyapi.com/api/character/?page="
-    
-    var urlAll: String { return string + "\(page)" }
     
     func fetchPage(str: String, completion: @escaping ((Model) -> Void)) {
         
@@ -37,6 +24,7 @@ class NetworkManager {
                 print("error")
             }
             guard let data = data else { return }
+            UserDefaults.standard.set(data, forKey: "Data")
             do {
                 let decoderJSON = try JSONDecoder().decode(Model.self, from: data)
                 completion(decoderJSON)

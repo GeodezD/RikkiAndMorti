@@ -17,8 +17,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         if data?.results.isEmpty == false {
             (cell as? CustomCell)?.setName(with: "\(data?.results[indexPath.item].name ?? "Don't have data")")
             (cell as? CustomCell)?.setImage(with: "\(data?.results[indexPath.item].image ?? "google.com/imgres?imgurl=https%3A%2F%2Fwww.computerhope.com%2Fjargon%2Fe%2Ferror.png&tbnid=jaSzOJAVAROumM&vet=12ahUKEwjzhODk2OX_AhXLUXcKHdZ8C1oQMygDegUIARDFAQ..i&imgrefurl=https%3A%2F%2Fwww.computerhope.com%2Fjargon%2Fe%2Ferror.htm&docid=Z0ChwtQ5SLVbDM&w=350&h=329&q=error&ved=2ahUKEwjzhODk2OX_AhXLUXcKHdZ8C1oQMygDegUIARDFAQ")")
-        } 
+        }
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("\(indexPath.item)")
+        let viewCell = ViewCell()
+        viewCell.indexPathCell = indexPath.item
+        print("\((ViewController().data))")
+        present(viewCell, animated: true, completion: nil)
+
+    }
 }

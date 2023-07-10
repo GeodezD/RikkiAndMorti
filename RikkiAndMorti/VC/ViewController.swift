@@ -8,37 +8,35 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var url = "https://rickandmortyapi.com/api/character/?page=1"
-    
-    let network = NetworkManager()
-    var api = Api()
-    let navigation = UINavigationItem()
+    private var url = "https://rickandmortyapi.com/api/character/?page=1"
+    private let network = NetworkManager()
+    private let navigation = UINavigationItem()
     var data: Model?
+ 
     private let navigationBar = UINavigationBar()
-    private let collectionView: UICollectionView = {
+    let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
-    }()
-    let button: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .red
-        return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setup()
-        fetchData()
+        DispatchQueue.main.async {
+            self.fetchData()
+        }
+       
     }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupPosition()
     }
     
-    func setup() {
+    private func setup() {
         navigationBar.setItems([navigation], animated: true)
         navigationBar.backgroundColor = .white
         view.addSubview(navigationBar)
@@ -47,6 +45,7 @@ class ViewController: UIViewController {
         collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.backgroundColor = .systemGray6
         
+        navigation.title = "Character"
         let next = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextPage))
         self.navigation.rightBarButtonItem = next
         let back = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(prevPage))
@@ -72,7 +71,7 @@ class ViewController: UIViewController {
         fetchData()
     }
     
-    func setupPosition() {
+    private func setupPosition() {
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -111,6 +110,14 @@ class ViewController: UIViewController {
             navigation.rightBarButtonItem?.isHidden = false
             navigation.leftBarButtonItem?.isHidden = false
         }
+    }
+    
+    func transferData(completion: @escaping ((Model?) -> Void)) {
+        completion(self.data)
+    }
+    
+    deinit {
+        print("I'm DEAD!!!!")
     }
 }
 
