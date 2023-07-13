@@ -27,7 +27,6 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             self.fetchData()
         }
-       
     }
     
     

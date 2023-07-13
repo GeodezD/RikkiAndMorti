@@ -41,7 +41,6 @@ class ViewCell: UIViewController {
     private func loadData() {
         ViewController().transferData() { data in
 //            guard let data = data else { return }
-                    print(data)
             print("i'm  take data")
         }
     }
