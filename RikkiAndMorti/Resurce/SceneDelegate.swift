@@ -21,9 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        window?.rootViewController = navigationController
 //        navigationController.setNavigationBarHidden(true, animated: true)
 //        window?.rootViewController = LaunchScreen()
-        window?.rootViewController = ViewController()
-        window?.makeKeyAndVisible()
-        window?.backgroundColor = .white
+//        window?.rootViewController = UINavigationController(rootViewController: ViewController())
+        let launchScreenImageView = UIImageView(frame: UIScreen.main.bounds)
+                launchScreenImageView.image = UIImage(named: "launch_screen_image")
+                launchScreenImageView.contentMode = .scaleAspectFill
+                window?.addSubview(launchScreenImageView)
         
     }
 
