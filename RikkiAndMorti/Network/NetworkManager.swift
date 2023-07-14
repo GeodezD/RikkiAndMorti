@@ -9,14 +9,14 @@ import Foundation
 
 class NetworkManager {
     
-    func fetchPage(str: String, completion: @escaping ((Model) -> Void)) {
-        
+    func fetchPage(str: String = "https://rickandmortyapi.com/api/character/?page=1", completion: @escaping ((Model) -> Void)) {
+        print("Network:", str)
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig,
                                  delegate: nil,
                                  delegateQueue: nil)
         guard let url = URL(string: str) else { return }
-        var request = URLRequest(url: url,  cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
+        var request = URLRequest(url: url,  cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60)
         request.httpMethod = "GET"
         
         let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -28,13 +28,11 @@ class NetworkManager {
             do {
                 let decoderJSON = try JSONDecoder().decode(Model.self, from: data)
                 completion(decoderJSON)
-                print("Data")
             } catch {
                 print("error: ", error)
             }
         }
         task.resume()
         session.finishTasksAndInvalidate()
-        print("Network")
     }
 }

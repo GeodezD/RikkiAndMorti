@@ -5,21 +5,38 @@
 //  Created by Дмитро Сегейда on 13.07.2023.
 //
 
-import Foundation
+import UIKit
+enum FirstPageUrl: String {
+    case url = "https://rickandmortyapi.com/api/character/?page=1"
+}
 
 class Memory {
     private var data: Model?
-    private var startUrl = "https://rickandmortyapi.com/api/character/?page=1"
     
-    func exportData(completion: @escaping ((Model?) -> Void)) {
-        completion(data)
+//    func exportData(completion: @escaping ((Model?) -> Void)) {
+//        completion(data)
+//    }
+    
+    func exportData() -> Model? {
+        return data
     }
     
-    func importData()  {
-        NetworkManager().fetchPage(str: startUrl) { model in
+    func editStartUrl(newUrl: String) {
+        print("Take new url:", newUrl)
+        importData(newUrl)
+    }
+    
+    func importData(_ newUrl: String = FirstPageUrl.url.rawValue)  {
+        print("Memory:", newUrl)
+        NetworkManager().fetchPage(str: newUrl) { [weak self] model in
+            guard let self = self else { return }
             self.data = model
             print("fetchData END")
         }
+    }
+    
+    func printData() {
+        print(data?.info.next)
     }
     
 }

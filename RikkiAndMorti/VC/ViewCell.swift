@@ -30,19 +30,12 @@ class ViewCell: UIViewController {
         } catch {
             print("error: ", error)
         }
-        loadData()
         print(indexPathCell)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setupConstraint()
-    }
-    private func loadData() {
-        ViewController().transferData() { data in
-//            guard let data = data else { return }
-            print("i'm  take data")
-        }
     }
     
     private func setup() {
