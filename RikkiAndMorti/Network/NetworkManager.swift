@@ -10,7 +10,6 @@ import Foundation
 class NetworkManager {
     
     func fetchPage(str: String = "https://rickandmortyapi.com/api/character/?page=1", completion: @escaping ((Model) -> Void)) {
-        print("Network:", str)
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig,
                                  delegate: nil,

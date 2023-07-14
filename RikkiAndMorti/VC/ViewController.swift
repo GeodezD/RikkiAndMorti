@@ -24,10 +24,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        DispatchQueue.global(qos: .userInitiated).sync {
-            self.fetchData()
-        }
-        //        fetchData()
+        fetchData()
+//        DispatchQueue.global(qos: .userInitiated).sync {
+//            self.fetchData()
+//        }
         setup()
         DispatchQueue.main.async {
             self.importInVCData()
@@ -106,15 +106,10 @@ class ViewController: UIViewController {
     
     private func importInVCData() {
         data = memory.exportData()
-        //        memory.exportData { model in
-        //            guard let model = model else { return }
-        //            self.data = model
-        //        }
         DispatchQueue.main.async {
             self.setupBarButtomItem()
             self.collectionView.reloadData()
         }
-        
     }
     
     private func setupBarButtomItem() {

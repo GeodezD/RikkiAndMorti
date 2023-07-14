@@ -27,11 +27,9 @@ class Memory {
     }
     
     func importData(_ newUrl: String = FirstPageUrl.url.rawValue)  {
-        print("Memory:", newUrl)
         NetworkManager().fetchPage(str: newUrl) { [weak self] model in
             guard let self = self else { return }
             self.data = model
-            print("fetchData END")
         }
     }
     
