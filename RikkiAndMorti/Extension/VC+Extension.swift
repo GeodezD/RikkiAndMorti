@@ -9,16 +9,25 @@ import UIKit
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        data?.results.count ?? 0
+         data?.results.count ?? 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if data?.results.isEmpty == false {
-            (cell as? CustomCell)?.setName(with: "\(data?.results[indexPath.item].name ?? "Don't have data")")
-            (cell as? CustomCell)?.setImage(with: "\(data?.results[indexPath.item].image ?? "google.com/imgres?imgurl=https%3A%2F%2Fwww.computerhope.com%2Fjargon%2Fe%2Ferror.png&tbnid=jaSzOJAVAROumM&vet=12ahUKEwjzhODk2OX_AhXLUXcKHdZ8C1oQMygDegUIARDFAQ..i&imgrefurl=https%3A%2F%2Fwww.computerhope.com%2Fjargon%2Fe%2Ferror.htm&docid=Z0ChwtQ5SLVbDM&w=350&h=329&q=error&ved=2ahUKEwjzhODk2OX_AhXLUXcKHdZ8C1oQMygDegUIARDFAQ")")
-        } 
+            guard let data = data else { fatalError(" None data ") }
+            
+            (cell as? CustomCell)?.setName(with: "\(data.results[indexPath.item].name)")
+            (cell as? CustomCell)?.setImage(with: "\(data.results[indexPath.item].image)")
+        }
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("\(indexPath.item)")
+        let viewCell = ViewCell()
+        viewCell.indexPathCell = indexPath.item
+        present(viewCell, animated: true, completion: nil)
+
+    }
 }

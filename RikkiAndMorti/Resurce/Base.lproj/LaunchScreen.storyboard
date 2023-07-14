@@ -5,34 +5,28 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                <viewController id="01J-lp-oVM" colorLabel="IBBuiltInLabel-Green" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3" colorLabel="IBBuiltInLabel-Blue">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen_image" translatesAutoresizingMaskIntoConstraints="NO" id="f3h-HI-tiN">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen_image" translatesAutoresizingMaskIntoConstraints="NO" id="VZL-ip-Qwx">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
-                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.1065112278" green="0.2112543285" blue="0.23922178150000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="f3h-HI-tiN" secondAttribute="bottom" id="3pJ-EO-Rwf"/>
-                            <constraint firstItem="f3h-HI-tiN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="4WQ-Us-Jyy"/>
-                            <constraint firstItem="f3h-HI-tiN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8sc-qr-ytr"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="f3h-HI-tiN" secondAttribute="trailing" id="Fy4-9n-w26"/>
-                            <constraint firstItem="f3h-HI-tiN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="XCR-nq-P8J"/>
-                            <constraint firstItem="f3h-HI-tiN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mEU-aW-9Jy"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="f3h-HI-tiN" secondAttribute="bottom" id="qQt-lc-uMq"/>
-                            <constraint firstItem="f3h-HI-tiN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uYP-RC-6zm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VZL-ip-Qwx" secondAttribute="bottom" id="8Jy-0K-rkd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VZL-ip-Qwx" secondAttribute="trailing" id="O7d-2f-Ubo"/>
+                            <constraint firstItem="VZL-ip-Qwx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="avh-q1-ltg"/>
+                            <constraint firstItem="VZL-ip-Qwx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jH5-ls-847"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -43,8 +37,5 @@
     </scenes>
     <resources>
         <image name="launch_screen_image" width="166.66667175292969" height="250"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

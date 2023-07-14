@@ -27,7 +27,7 @@ class CustomCell: UICollectionViewCell {
     }
     
     
-    func setup() {
+    private func setup() {
         //UIImage
         viewImage.translatesAutoresizingMaskIntoConstraints = false
         viewImage.layer.cornerRadius = 20
@@ -43,7 +43,7 @@ class CustomCell: UICollectionViewCell {
         setupConstraints()
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         addSubview(label)
         addSubview(viewImage)
         NSLayoutConstraint.activate([

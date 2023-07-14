@@ -8,29 +8,30 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var url = "https://rickandmortyapi.com/api/character/?page=1"
-    
-    let network = NetworkManager()
-    var api = Api()
-    let navigation = UINavigationItem()
+    private var url = "https://rickandmortyapi.com/api/character/?page=1"
+    private let network = NetworkManager()
+    private let navigation = UINavigationItem()
+    private let memory = Memory()
     var data: Model?
+    
     private let navigationBar = UINavigationBar()
-    private let collectionView: UICollectionView = {
+    let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
-    }()
-    let button: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .red
-        return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setup()
         fetchData()
+//        DispatchQueue.global(qos: .userInitiated).sync {
+//            self.fetchData()
+//        }
+        setup()
+        DispatchQueue.main.async {
+            self.importInVCData()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -38,7 +39,7 @@ class ViewController: UIViewController {
         setupPosition()
     }
     
-    func setup() {
+    private func setup() {
         navigationBar.setItems([navigation], animated: true)
         navigationBar.backgroundColor = .white
         view.addSubview(navigationBar)
@@ -47,7 +48,7 @@ class ViewController: UIViewController {
         collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.backgroundColor = .systemGray6
         
-        navigation.title = "Page: "
+        navigation.title = "Character"
         let next = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextPage))
         self.navigation.rightBarButtonItem = next
         let back = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(prevPage))
@@ -62,18 +63,27 @@ class ViewController: UIViewController {
     }
     
     @objc func nextPage() {
-        guard let next = data?.info.next else { return }
-        self.url = next
-        fetchData()
+        guard let next = self.memory.exportData()?.info.next else { return }
+        prevOrNextPage(next)
     }
     
     @objc func prevPage() {
-        guard let prev = data?.info.prev else { return }
-        self.url = prev
-        fetchData()
+        guard let prev = self.memory.exportData()?.info.prev else { return }
+        prevOrNextPage(prev)
     }
     
-    func setupPosition() {
+    private func prevOrNextPage(_ str: String) {
+        DispatchQueue.global().async {
+            self.memory.importData(str)
+        }
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.async {
+                self.importInVCData()
+            }
+        }
+    }
+    
+    private func setupPosition() {
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -91,12 +101,14 @@ class ViewController: UIViewController {
     }
     
     private func fetchData() {
-        NetworkManager().fetchPage(str: url) { model in
-            self.data = model
-            DispatchQueue.main.async { [self] in
-                setupBarButtomItem()
-                self.collectionView.reloadData()
-            }
+        memory.importData()
+    }
+    
+    private func importInVCData() {
+        data = memory.exportData()
+        DispatchQueue.main.async {
+            self.setupBarButtomItem()
+            self.collectionView.reloadData()
         }
     }
     

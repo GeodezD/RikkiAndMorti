@@ -33,7 +33,6 @@ final class GetImage {
                 }
             }
             dataTask.resume()
-            print("Cache: \(self.imageCache)")
         }
     }
 }
