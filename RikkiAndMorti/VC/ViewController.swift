@@ -63,13 +63,24 @@ class ViewController: UIViewController {
     }
     
     @objc func nextPage() {
-        guard let next = self.memory.exportData()?.info.next else { return }
+        guard let next = self.data?.info.next else { return }
         prevOrNextPage(next)
+        coollectionViewScrollTop()
     }
     
     @objc func prevPage() {
-        guard let prev = self.memory.exportData()?.info.prev else { return }
+        guard let prev = self.data?.info.prev else { return }
         prevOrNextPage(prev)
+        coollectionViewScrollTop()
+    }
+    
+    func coollectionViewScrollTop() {
+        let sectionCount = collectionView.numberOfSections
+        let lastSection = sectionCount - 1
+        let itemCount = collectionView.numberOfItems(inSection: lastSection)
+        guard itemCount > 0 else { return }
+        let firstItemIndexPath = IndexPath(item: 0, section: lastSection)
+        collectionView.scrollToItem(at: firstItemIndexPath, at: .bottom, animated: true)
     }
     
     private func prevOrNextPage(_ str: String) {
@@ -105,7 +116,7 @@ class ViewController: UIViewController {
     }
     
     private func importInVCData() {
-        data = memory.exportData()
+        data = memory.exportFetchData()
         DispatchQueue.main.async {
             self.setupBarButtomItem()
             self.collectionView.reloadData()
