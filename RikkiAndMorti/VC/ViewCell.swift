@@ -9,6 +9,7 @@ import UIKit
 
 class ViewCell: UIViewController {
     private let memory = Memory()
+
     var indexPathCell: Int?
     private var viewImage = UIImageView()
     private var image: UIImage? {
@@ -19,6 +20,7 @@ class ViewCell: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        downloadImage()
         setup()
 //        guard  let  indexPathCell = indexPathCell else { return }
 //        let data = UserDefaults.standard.data(forKey: "Data")
@@ -38,38 +40,42 @@ class ViewCell: UIViewController {
         setupConstraint()
     }
     
+    private func downloadImage() {
+        print("Download image")
+        
+        guard let indexPathCell = indexPathCell else { return }
+        let data = memory.exportFetchData().results[indexPathCell].image
+//        guard let picture = ViewController().data?.results[indexPathCell].image else { fatalError("I'm don't have url") }
+        DispatchQueue.main.async {
+            self.giveImage(with: data)
+        }
+    }
+    
     private func setup() {
         view.backgroundColor = .white
         view.addSubview(viewImage)
-        guard let indexPathCell = indexPathCell else { return }
-        guard let picture = memory.exportData()?.results[indexPathCell].image else { return }
-        DispatchQueue.main.async {
-            self.giveImage(with: picture)
-        }
-        
     }
     
     private func setupConstraint() {
         viewImage.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             viewImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
             viewImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            viewImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 8),
+            viewImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             viewImage.heightAnchor.constraint(equalToConstant: 300)
         ])
         
     }
     
     func giveImage(with picture: String) {
-        
+        print("I'm give image")
         guard let url = URL(string: picture) else { fatalError( "Error" ) }
         GetImage().downloadImage(url: url) { image in
-            self.image = image
+            DispatchQueue.main.async {
+                self.image = image
+            }
             print("YES")
         }
     }
-    
-
 }
 

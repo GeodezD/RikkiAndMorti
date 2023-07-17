@@ -12,13 +12,21 @@ enum FirstPageUrl: String {
 
 class Memory {
     private var data: Model?
+    private var fetchData: Model {
+        var result: Model?
+        let data = UserDefaults.standard.data(forKey: "Data")
+        do {
+            guard let forceData = data else { fatalError("I'm don't have DATA") }
+            result = try JSONDecoder().decode(Model.self, from: forceData)
+        } catch {
+            print("error: ", error)
+        }
+        guard let result = result else { fatalError("I'm don't have result") }
+        return result
+    }
     
-//    func exportData(completion: @escaping ((Model?) -> Void)) {
-//        completion(data)
-//    }
-    
-    func exportData() -> Model? {
-        return data
+    func exportFetchData() -> Model {
+        fetchData
     }
     
     func editStartUrl(newUrl: String) {
@@ -32,9 +40,4 @@ class Memory {
             self.data = model
         }
     }
-    
-    func printData() {
-        print(data?.info.next)
-    }
-    
 }
