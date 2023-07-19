@@ -27,7 +27,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         print("\(indexPath.item)")
         let viewCell = ViewCell()
         viewCell.indexPathCell = indexPath.item
-        present(viewCell, animated: true, completion: nil)
+        navigationController?.pushViewController(viewCell, animated: true)
+//        present(viewCell, animated: true, completion: nil)
 
     }
 }

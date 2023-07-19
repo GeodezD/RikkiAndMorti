@@ -29,11 +29,6 @@ class Memory {
         fetchData
     }
     
-    func editStartUrl(newUrl: String) {
-        print("Take new url:", newUrl)
-        importData(newUrl)
-    }
-    
     func importData(_ newUrl: String = FirstPageUrl.url.rawValue)  {
         NetworkManager().fetchPage(str: newUrl) { [weak self] model in
             guard let self = self else { return }

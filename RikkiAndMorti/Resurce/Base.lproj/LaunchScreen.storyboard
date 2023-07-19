@@ -17,16 +17,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen_image" translatesAutoresizingMaskIntoConstraints="NO" id="VZL-ip-Qwx">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.1065112278" green="0.2112543285" blue="0.23922178150000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VZL-ip-Qwx" secondAttribute="bottom" id="8Jy-0K-rkd"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VZL-ip-Qwx" secondAttribute="trailing" id="O7d-2f-Ubo"/>
-                            <constraint firstItem="VZL-ip-Qwx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="avh-q1-ltg"/>
-                            <constraint firstItem="VZL-ip-Qwx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jH5-ls-847"/>
+                            <constraint firstAttribute="bottom" secondItem="VZL-ip-Qwx" secondAttribute="bottom" id="gOV-xi-82F"/>
+                            <constraint firstItem="VZL-ip-Qwx" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="iXE-6U-RdM"/>
+                            <constraint firstItem="VZL-ip-Qwx" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="tgL-Bv-sy8"/>
+                            <constraint firstAttribute="trailing" secondItem="VZL-ip-Qwx" secondAttribute="trailing" id="zip-HK-Aly"/>
                         </constraints>
                     </view>
                 </viewController>
