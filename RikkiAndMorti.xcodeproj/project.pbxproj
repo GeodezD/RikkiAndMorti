@@ -24,6 +24,7 @@
 		A16D5B7E2A67C71200922462 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B7D2A67C71200922462 /* Episode.swift */; };
 		A16D5B802A67C72F00922462 /* LocationCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B7F2A67C72F00922462 /* LocationCharacter.swift */; };
 		A16D5B852A67D49400922462 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B842A67D49400922462 /* Character.swift */; };
+		A18C56252A67DF5500C5BB9F /* TabBarcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56242A67DF5500C5BB9F /* TabBarcontroller.swift */; };
 		A1BA041E2A4C31230053019D /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BA041D2A4C31230053019D /* GetImage.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		A16D5B7D2A67C71200922462 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Episode.swift; path = ../VC/Episode.swift; sourceTree = "<group>"; };
 		A16D5B7F2A67C72F00922462 /* LocationCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCharacter.swift; sourceTree = "<group>"; };
 		A16D5B842A67D49400922462 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		A18C56242A67DF5500C5BB9F /* TabBarcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarcontroller.swift; sourceTree = "<group>"; };
 		A1BA041D2A4C31230053019D /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +118,7 @@
 				A12EB2B72A5C16FC003DC76E /* ViewCell.swift */,
 				A109E5982A6565A100C3F6C9 /* LaunchScreen.swift */,
 				A16D5B7B2A66E22E00922462 /* VCSegmentControl.swift */,
+				A18C56242A67DF5500C5BB9F /* TabBarcontroller.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A122310D2A432159005D23D4 /* Model.swift in Sources */,
+				A18C56252A67DF5500C5BB9F /* TabBarcontroller.swift in Sources */,
 				A10933392A4990D30013DB0F /* VC+Extension.swift in Sources */,
 				A109E5992A6565A100C3F6C9 /* LaunchScreen.swift in Sources */,
 				A12EB2B82A5C16FC003DC76E /* ViewCell.swift in Sources */,

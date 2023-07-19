@@ -8,15 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private var url = "https://rickandmortyapi.com/api/character/?page=1"
     private let network = NetworkManager()
     private let navigation = UINavigationItem()
     private let memory = Memory()
-    private let segmentedControl = UISegmentedControl()
     var data: Model?
-    
     private let navigationBar = UINavigationBar()
-    let collectionView: UICollectionView = {
+    private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
@@ -35,20 +32,11 @@ class ViewController: UIViewController {
         super.viewDidLayoutSubviews()
         setupPosition()
     }
+    
     private func addView() {
         view.addSubview(navigationBar)
         view.addSubview(collectionView)
         setup()
-        view.addSubview(segmentedControl)
-        setupSegmentedControl()
-    }
-    
-    private func setupSegmentedControl() {
-        segmentedControl.insertSegment(withTitle: "Character", at: 0, animated: true)
-        segmentedControl.insertSegment(withTitle: "Episode", at: 1, animated: true)
-        segmentedControl.insertSegment(withTitle: "Location", at: 2, animated: true)
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(targeNewView), for: .valueChanged)
     }
     
     private func setup() {
@@ -57,8 +45,9 @@ class ViewController: UIViewController {
         navigation.title = "Character"
         let next = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextPage))
         self.navigation.rightBarButtonItem = next
-        let back = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(prevPage))
+        let back = UIBarButtonItem(title: "Prev", style: .plain, target: self, action: #selector(prevPage))
         self.navigation.leftBarButtonItem = back
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
@@ -105,7 +94,6 @@ class ViewController: UIViewController {
     private func setupPosition() {
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             navigationBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor
@@ -115,13 +103,9 @@ class ViewController: UIViewController {
             navigationBar.heightAnchor.constraint(equalToConstant: 44),
             
             collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: segmentedControl.topAnchor, constant: -4),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -4),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
-            
-            segmentedControl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            segmentedControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
     }
     
@@ -150,18 +134,5 @@ class ViewController: UIViewController {
             navigation.leftBarButtonItem?.isHidden = false
         }
     }
-    
-    @objc func targeNewView(element: UISegmentedControl) {
-        print(element.selectedSegmentIndex)
-        switch element.selectedSegmentIndex {
-        case 0:
-            segmentedControl.selectedSegmentIndex = 0
-        case 1:
-            segmentedControl.selectedSegmentIndex = 1
-        default:
-            segmentedControl.selectedSegmentIndex = 2
-        }
-    }
-    
 }
 

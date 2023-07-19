@@ -94,13 +94,13 @@ class ViewCell: UIViewController {
             "LOCATION:",
             memory.exportFetchData().results[indexPathCell].origin.name,
         ]
+        
         for index in 0..<data.count {
             let label = UILabel()
             label.numberOfLines = 3
             label.font = .systemFont(ofSize: 16)
             let view = UIView()
             view.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
-            print("index:", index)
             if index % 2 == 0 {
                 label.font = .systemFont(ofSize: 20)
                 view.backgroundColor = .systemGray4

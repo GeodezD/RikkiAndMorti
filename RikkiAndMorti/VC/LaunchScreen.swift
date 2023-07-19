@@ -28,8 +28,4 @@ class LaunchScreen: UIViewController {
         let nextVC = ViewController()
         navigationController?.pushViewController(nextVC, animated: false)
     }
-    
-    func position() {
-        
-    }
 }
