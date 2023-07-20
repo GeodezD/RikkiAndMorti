@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     private let network = NetworkManager()
     private let navigation = UINavigationItem()
     private let memory = Memory()
-    var data: Model?
+    var data: CharactersModel?
     private let navigationBar = UINavigationBar()
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     private func setup() {
         navigationBar.setItems([navigation], animated: true)
         navigationBar.backgroundColor = .white
-        navigation.title = "Character"
+        navigation.title = "Characters"
         let next = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextPage))
         self.navigation.rightBarButtonItem = next
         let back = UIBarButtonItem(title: "Prev", style: .plain, target: self, action: #selector(prevPage))
@@ -82,7 +82,7 @@ class ViewController: UIViewController {
     
     private func prevOrNextPage(_ str: String) {
         DispatchQueue.global().async {
-            self.memory.importData(str)
+            self.memory.receivingDataCharacters(str)
         }
         DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.5) {
             DispatchQueue.main.async {
@@ -110,11 +110,11 @@ class ViewController: UIViewController {
     }
     
     private func fetchData() {
-        memory.importData()
+        memory.receivingDataCharacters()
     }
     
     private func importInVCData() {
-        data = memory.exportFetchData()
+        data = memory.returnDataCharacters()
         DispatchQueue.main.async {
             self.setupBarButtomItem()
             self.collectionView.reloadData()
