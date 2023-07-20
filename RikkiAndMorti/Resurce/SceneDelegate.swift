@@ -14,11 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-//        let navigationController = UINavigationController(rootViewController: LaunchScreen())
-//                window?.rootViewController = navigationController
-//                navigationController.setNavigationBarHidden(true, animated: true)
+
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = RMTabBarController()
+        let navigationController = UINavigationController(rootViewController: LaunchScreen())
+                window?.rootViewController = navigationController
+                navigationController.setNavigationBarHidden(true, animated: true)
+//        window?.rootViewController = RMTabBarController()
         window?.makeKeyAndVisible()
         window?.backgroundColor = .white        
     }
