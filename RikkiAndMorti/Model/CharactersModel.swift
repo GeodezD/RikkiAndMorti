@@ -7,38 +7,38 @@
 
 import Foundation
 
-struct Model: Codable {
-    let info: Info
-    let results: [Results]
+struct CharactersModel: Codable {
+    let info: InfoCharacters
+    let results: [ResultsCharacters]
 }
 
-struct Info: Codable {
+struct InfoCharacters: Codable {
     let count: Int
     let pages: Int
     let next: String?
     let prev: String?
 }
 
-struct Results: Codable {
+struct ResultsCharacters: Codable {
     let id: Int
     let name: String
     let status: String
     let species: String
     let type: String
     let gender: String
-    let origin: Origin
-    let location: Location
+    let origin: OriginCharacters
+    let location: LocationCharacters
     let image: String
     let episode: [String]
     let url: String
 }
 
-struct Origin: Codable {
+struct OriginCharacters: Codable {
     let name: String
     let url: String
 }
 
-struct Location: Codable {
+struct LocationCharacters: Codable {
     let name: String
     let url: String
 }

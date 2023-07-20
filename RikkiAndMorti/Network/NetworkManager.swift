@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkManager {
     
-    func fetchPage(str: String = "https://rickandmortyapi.com/api/character/?page=1", completion: @escaping ((Model) -> Void)) {
+    func fetchPage(str: String) {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig,
                                  delegate: nil,
@@ -24,12 +24,6 @@ class NetworkManager {
             }
             guard let data = data else { return }
             UserDefaults.standard.set(data, forKey: "Data")
-            do {
-                let decoderJSON = try JSONDecoder().decode(Model.self, from: data)
-                completion(decoderJSON)
-            } catch {
-                print("error: ", error)
-            }
         }
         task.resume()
         session.finishTasksAndInvalidate()

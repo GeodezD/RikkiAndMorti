@@ -8,10 +8,13 @@
 import UIKit
 
 class Episode: UIViewController {
-    let newView = UIView()
+    private weak var memory: Memory?
+    private let newView = UIView()
+    private let label = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setup()
     }
     
@@ -21,12 +24,11 @@ class Episode: UIViewController {
     }
     
     func setup() {
-        newView.backgroundColor = .blue
-        view.addSubview(newView)
+        view.addSubview(label)
     }
     
     func setupPosition() {
-        newView.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             newView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
             newView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 4),
@@ -34,4 +36,6 @@ class Episode: UIViewController {
             newView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -4)
         ])
     }
+    
+    
 }

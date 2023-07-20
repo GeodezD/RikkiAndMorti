@@ -84,15 +84,15 @@ class ViewCell: UIViewController {
         guard let indexPathCell = indexPathCell else { return }
         let data = [
             "NAME:",
-            memory.exportFetchData().results[indexPathCell].name,
+            memory.returnDataCharacters().results[indexPathCell].name,
             "STATUS:",
-            memory.exportFetchData().results[indexPathCell].status,
+            memory.returnDataCharacters().results[indexPathCell].status,
             "GENDER:",
-            memory.exportFetchData().results[indexPathCell].gender,
+            memory.returnDataCharacters().results[indexPathCell].gender,
             "SPECIES:",
-            memory.exportFetchData().results[indexPathCell].species,
+            memory.returnDataCharacters().results[indexPathCell].species,
             "LOCATION:",
-            memory.exportFetchData().results[indexPathCell].origin.name,
+            memory.returnDataCharacters().results[indexPathCell].origin.name,
         ]
         
         for index in 0..<data.count {
@@ -159,8 +159,8 @@ class ViewCell: UIViewController {
     
     private func downloadImage() {
         guard let indexPathCell = indexPathCell else { return }
-        print(memory.exportFetchData().results[indexPathCell])
-        let data = memory.exportFetchData().results[indexPathCell].image
+        print(memory.returnDataCharacters().results[indexPathCell])
+        let data = memory.returnDataCharacters().results[indexPathCell].image
         DispatchQueue.main.async {
             guard let url = URL(string: data) else { fatalError( "Error" ) }
             GetImage().downloadImage(url: url) { image in
