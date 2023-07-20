@@ -21,7 +21,7 @@
 		A16D5B7E2A67C71200922462 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B7D2A67C71200922462 /* Episode.swift */; };
 		A16D5B802A67C72F00922462 /* LocationCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B7F2A67C72F00922462 /* LocationCharacter.swift */; };
 		A18C56252A67DF5500C5BB9F /* TabBarcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56242A67DF5500C5BB9F /* TabBarcontroller.swift */; };
-		A18C56422A6963B200C5BB9F /* MemoryT.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56412A6963B200C5BB9F /* MemoryT.swift */; };
+		A18C56422A6963B200C5BB9F /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56412A6963B200C5BB9F /* Memory.swift */; };
 		A18C56462A69640A00C5BB9F /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56452A69640A00C5BB9F /* protocols.swift */; };
 		A18C56482A6966C100C5BB9F /* EpisodesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56472A6966C100C5BB9F /* EpisodesModel.swift */; };
 		A18C564A2A6966DA00C5BB9F /* LocationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56492A6966DA00C5BB9F /* LocationsModel.swift */; };
@@ -46,7 +46,7 @@
 		A16D5B7D2A67C71200922462 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		A16D5B7F2A67C72F00922462 /* LocationCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCharacter.swift; sourceTree = "<group>"; };
 		A18C56242A67DF5500C5BB9F /* TabBarcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarcontroller.swift; sourceTree = "<group>"; };
-		A18C56412A6963B200C5BB9F /* MemoryT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryT.swift; sourceTree = "<group>"; };
+		A18C56412A6963B200C5BB9F /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		A18C56452A69640A00C5BB9F /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		A18C56472A6966C100C5BB9F /* EpisodesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesModel.swift; sourceTree = "<group>"; };
 		A18C56492A6966DA00C5BB9F /* LocationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsModel.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 		A1BA041C2A4C10C80053019D /* Resurce */ = {
 			isa = PBXGroup;
 			children = (
-				A18C56412A6963B200C5BB9F /* MemoryT.swift */,
+				A18C56412A6963B200C5BB9F /* Memory.swift */,
 				A12230F42A431FC0005D23D4 /* AppDelegate.swift */,
 				A12230F62A431FC0005D23D4 /* SceneDelegate.swift */,
 				A12230FA2A431FC0005D23D4 /* Main.storyboard */,
@@ -253,7 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A122310D2A432159005D23D4 /* CharactersModel.swift in Sources */,
-				A18C56422A6963B200C5BB9F /* MemoryT.swift in Sources */,
+				A18C56422A6963B200C5BB9F /* Memory.swift in Sources */,
 				A18C56252A67DF5500C5BB9F /* TabBarcontroller.swift in Sources */,
 				A10933392A4990D30013DB0F /* VC+Extension.swift in Sources */,
 				A109E5992A6565A100C3F6C9 /* LaunchScreen.swift in Sources */,
