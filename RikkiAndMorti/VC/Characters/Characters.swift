@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  Characters.swift
 //  RikkiAndMorti
 //
 //  Created by Дмитро Сегейда on 21.06.2023.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    private let network = NetworkManager()
-    private let navigation = UINavigationItem()
-    private let memory = Memory()
+class Characters: UIViewController {
     var data: CharactersModel?
+    private let navigation = UINavigationItem()
     private let navigationBar = UINavigationBar()
+    private var activityIndikatorDelegate: ActivityIndikatorDelegate?
+    private let subView = UIView()
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -21,11 +21,26 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData()
+        setup()
         addView()
-        DispatchQueue.main.async {
-            self.importInVCData()
+        
+        activityIndikatorDelegate = ActivityIndikator()
+        guard let activityIndikatorDelegate = activityIndikatorDelegate else { return }
+        activityIndikatorDelegate.setupView().frame = view.frame
+        view.addSubview(activityIndikatorDelegate.setupView())
+        activityIndikatorDelegate.indikator().startAnimating()
+    
+        DispatchQueue.global(qos: .userInteractive).sync {
+            self.fetchData()
         }
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + 3, execute: {
+            self.importInVCData()
+            DispatchQueue.main.async {
+                self.activityIndikatorDelegate?.indikator().stopAnimating()
+                self.activityIndikatorDelegate?.setupView().removeFromSuperview()
+            }
+        })
     }
     
     override func viewDidLayoutSubviews() {
@@ -33,10 +48,10 @@ class ViewController: UIViewController {
         setupPosition()
     }
     
-    private func addView() {
-        view.addSubview(navigationBar)
-        view.addSubview(collectionView)
-        setup()
+    func addView() {
+        view.addSubview(subView)
+        subView.addSubview(navigationBar)
+        subView.addSubview(collectionView)
     }
     
     private func setup() {
@@ -50,7 +65,7 @@ class ViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(CustomCellCharacters.self, forCellWithReuseIdentifier: "cell")
         collectionView.backgroundColor = .systemGray6
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         layout.itemSize = .init(width: 175, height: 200)
@@ -58,6 +73,31 @@ class ViewController: UIViewController {
         layout.minimumLineSpacing = 2
         layout.scrollDirection = .vertical
     }
+    
+    private func setupPosition() {
+            subView.translatesAutoresizingMaskIntoConstraints = false
+            navigationBar.translatesAutoresizingMaskIntoConstraints = false
+            collectionView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                subView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
+                subView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+                subView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+                subView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+                
+                navigationBar.leadingAnchor.constraint(equalTo: subView.leadingAnchor
+                                                       , constant: 0),
+                navigationBar.topAnchor.constraint(equalTo: subView.topAnchor, constant: 0),
+                navigationBar.trailingAnchor.constraint(equalTo: subView.trailingAnchor, constant: 0),
+                navigationBar.heightAnchor.constraint(equalToConstant: 44),
+                
+                collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 0),
+                collectionView.bottomAnchor.constraint(equalTo: subView.bottomAnchor, constant: 0),
+                collectionView.leadingAnchor.constraint(equalTo: subView.leadingAnchor, constant: 0),
+                collectionView.trailingAnchor.constraint(equalTo: subView.trailingAnchor, constant: 0),
+                
+            ])
+        }
     
     @objc func nextPage() {
         guard let next = self.data?.info.next else { return }
@@ -82,8 +122,10 @@ class ViewController: UIViewController {
     
     private func prevOrNextPage(_ str: String) {
         DispatchQueue.global().async {
-            self.memory.receivingDataCharacters(str)
+            let memory = Memory()
+            memory.receivingDataCharacters(str)
         }
+        
         DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.5) {
             DispatchQueue.main.async {
                 self.importInVCData()
@@ -91,29 +133,13 @@ class ViewController: UIViewController {
         }
     }
     
-    private func setupPosition() {
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            navigationBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor
-                                                   , constant: 12),
-            navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            navigationBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
-            navigationBar.heightAnchor.constraint(equalToConstant: 44),
-            
-            collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -4),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
-        ])
-    }
-    
     private func fetchData() {
+        let memory = Memory()
         memory.receivingDataCharacters()
     }
     
     private func importInVCData() {
+        let memory = Memory()
         data = memory.returnDataCharacters()
         DispatchQueue.main.async {
             self.setupBarButtomItem()
