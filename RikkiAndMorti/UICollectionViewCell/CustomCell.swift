@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomCell: UICollectionViewCell {
+class CustomCellCharacters: UICollectionViewCell {
     
     private let label = UILabel()
     private var viewImage = UIImageView()

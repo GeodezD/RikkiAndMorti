@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension Characters: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          data?.results.count ?? 10
     }
@@ -17,8 +17,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         if data?.results.isEmpty == false {
             guard let data = data else { fatalError(" None data ") }
             
-            (cell as? CustomCell)?.setName(with: "\(data.results[indexPath.item].name)")
-            (cell as? CustomCell)?.setImage(with: "\(data.results[indexPath.item].image)")
+            (cell as? CustomCellCharacters)?.setName(with: "\(data.results[indexPath.item].name)")
+            (cell as? CustomCellCharacters)?.setImage(with: "\(data.results[indexPath.item].image)")
         }
         return cell
     }

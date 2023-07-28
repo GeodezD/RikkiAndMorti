@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LocationCharacter: UIViewController {
+class Location: UIViewController {
     let newView = UIView()
     
     override func viewDidLoad() {

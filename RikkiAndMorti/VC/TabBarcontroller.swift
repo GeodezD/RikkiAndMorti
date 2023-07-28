@@ -18,13 +18,16 @@ final class RMTabBarController: UITabBarController {
     }
 
     private func setUpTabs() {
-        let vc1 = ViewController()
-        let vc2 = LocationCharacter()
+        let vc1 = Characters()
+        let vc2 = Location()
         let vc3 = Episode()
         
         let nav1 = UINavigationController(rootViewController: vc1)
         let nav2 = UINavigationController(rootViewController: vc2)
         let nav3 = UINavigationController(rootViewController: vc3)
+//        let nav1 = UINavigationController(rootViewController: vc3)
+//        let nav2 = UINavigationController(rootViewController: vc2)
+//        let nav3 = UINavigationController(rootViewController: vc1)
         
         nav1.isNavigationBarHidden = true
         nav2.isNavigationBarHidden = true

@@ -17,14 +17,12 @@ final class GetImage {
         } else {
             let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
             let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
-                
                 guard error == nil,
                       let data = data,
                       let response = response as? HTTPURLResponse,
                       response.statusCode == 200 else {
                     return
                 }
-                
                 guard let image = UIImage(data: data) else { return }
                 self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
                 
