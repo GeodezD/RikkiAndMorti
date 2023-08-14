@@ -8,11 +8,13 @@
 import UIKit
 
 class Characters: UIViewController {
+    
     var data: CharactersModel?
     private let navigation = UINavigationItem()
     private let navigationBar = UINavigationBar()
     private var activityIndikatorDelegate: ActivityIndikatorDelegate?
     private let subView = UIView()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -34,7 +36,7 @@ class Characters: UIViewController {
             self.fetchData()
         }
         
-        DispatchQueue.global().asyncAfter(deadline: .now() + 3, execute: {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2, execute: {
             self.importInVCData()
             DispatchQueue.main.async {
                 self.activityIndikatorDelegate?.indikator().stopAnimating()
@@ -134,8 +136,15 @@ class Characters: UIViewController {
     }
     
     private func fetchData() {
-        let memory = Memory()
-        memory.receivingDataCharacters()
+//        let memory = Memory()
+//        memory.receivingDataCharacters()
+        
+        NetworkManager().fetchPage(str: FirstPageUrl.characters.rawValue) { data  in
+            if let decodeData: CharactersModel = NetworkManager().decodeData(data, into: CharactersModel.self) {
+                self.data = decodeData
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
     }
     
     private func importInVCData() {

@@ -29,6 +29,7 @@ struct ResultsEpisodes: Codable {
     let created: String
     
 }
+
 enum CodingKeys: String, CodingKey {
     case id, name, episode, characters, url, created, info, results, count, pages, next, prev
     case airDate = "air_date"

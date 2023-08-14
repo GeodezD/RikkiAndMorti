@@ -1,5 +1,5 @@
 //
-//  CustomCell.swift
+//  CustomCellCharacters.swift
 //  RikkiAndMorti
 //
 //  Created by Дмитро Сегейда on 26.06.2023.
@@ -25,7 +25,6 @@ class CustomCellCharacters: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     private func setup() {
         //UIImage
