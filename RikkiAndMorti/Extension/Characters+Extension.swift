@@ -14,9 +14,10 @@ extension Characters: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        guard let data else { fatalError(" None data ") }
-        (cell as? CustomCellCharacters)?.setName(with: "\(data.results[indexPath.item].name)")
-        (cell as? CustomCellCharacters)?.setImage(with: "\(data.results[indexPath.item].image)")
+        if let data {
+            (cell as? CustomCellCharacters)?.setName(with: "\(data.results[indexPath.item].name)")
+            (cell as? CustomCellCharacters)?.setImage(with: "\(data.results[indexPath.item].image)")
+        }
         return cell
     }
     
