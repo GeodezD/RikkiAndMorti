@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewCell: UIViewController {
+class CharacterViewCell: UIViewController {
     private let memory = Memory()
     var indexPathCell: Int?
     private let viewImage = UIImageView()

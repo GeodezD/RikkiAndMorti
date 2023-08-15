@@ -7,20 +7,20 @@
 
 import Foundation
 
+enum FirstPageUrl: String {
+    case characters = "https://rickandmortyapi.com/api/character/?page=1"
+    case episodes = "https://rickandmortyapi.com/api/episode/?page=1"
+    case locations = "https://rickandmortyapi.com/api/location/?page=1"
+}
+
 final class NetworkManager: NetworkDelegate {
     
-    init() {
-        print("Network ON")
-    }
-    var target = false
-    func fetchPage(str: String,  completion: @escaping ((Data) -> Void)) {
+    func fetchPage(str: String, completion: @escaping ((Data) -> Void)) {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig,
                                  delegate: nil,
                                  delegateQueue: nil)
         guard let url = URL(string: str) else { fatalError() }
-        
-        
         var request = URLRequest(url: url,  cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60)
         request.httpMethod = "GET"
         let serialQueue = DispatchQueue(label: "Network", attributes: .concurrent)
@@ -30,7 +30,6 @@ final class NetworkManager: NetworkDelegate {
                     print("error")
                 }
                 guard let data = data else { return }
-                print("I'm save DATA")
                 completion(data)
             }
             task.resume()
@@ -38,7 +37,84 @@ final class NetworkManager: NetworkDelegate {
         }
     }
     
-    deinit {
-        print("Network OFF")
+    func decodeData<T: Decodable>(_ data: Data, into type: T.Type) -> T? {
+        let decoder = JSONDecoder()
+        do {
+            if type is EpisodesModel.Type {
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+            }
+            let decodedData = try decoder.decode(type, from: data)
+            switch type {
+            case is CharactersModel.Type:
+                UserDefaults.standard.set(data, forKey: "Characters")
+            case is EpisodesModel.Type:
+                UserDefaults.standard.set(data, forKey: "Episodes")
+            case is LocationsModel.Type:
+                UserDefaults.standard.set(data, forKey: "Locations")
+            case is ResultsCharacters.Type:
+                UserDefaults.standard.set(data, forKey: "Character")
+            default:
+                print("Fails")
+                break
+            }
+            return decodedData
+        } catch {
+            print("Decoding error: \(error)")
+            return nil
+        }
+    }
+    
+    func returnDataFromUserDafaults<T: Decodable>(into type: T.Type) -> T? {
+        var returnData: T?
+        switch type {
+        case is CharactersModel.Type:
+
+            let data = UserDefaults.standard.data(forKey: "Characters")
+            do {
+                guard let forceData = data else { fatalError("I'm don't have DATA") }
+                returnData = try JSONDecoder().decode(CharactersModel.self, from: forceData) as? T
+            } catch {
+                print("error: ", error)
+            }
+            return returnData
+
+        case is EpisodesModel.Type:
+
+            let data = UserDefaults.standard.data(forKey: "Episodes")
+            do {
+                guard let forceData = data else { fatalError("I'm don't have DATA") }
+                returnData = try JSONDecoder().decode(EpisodesModel.self, from: forceData) as? T
+            } catch {
+                print("error: ", error)
+            }
+            return returnData
+
+        case is LocationsModel.Type:
+
+            let data = UserDefaults.standard.data(forKey: "Locations")
+            do {
+                guard let forceData = data else { fatalError("I'm don't have DATA") }
+                returnData = try JSONDecoder().decode(LocationsModel.self, from: forceData) as? T
+            } catch {
+                print("error: ", error)
+            }
+            return returnData
+
+        case is ResultsCharacters.Type:
+
+            let data = UserDefaults.standard.data(forKey: "Character")
+            do {
+                guard let forceData = data else { fatalError("I'm don't have DATA") }
+                returnData = try JSONDecoder().decode(ResultsCharacters.self, from: forceData) as? T
+            } catch {
+                print("error: ", error)
+            }
+            return returnData
+
+        default:
+            break
+        }
+        return returnData
     }
 }
+

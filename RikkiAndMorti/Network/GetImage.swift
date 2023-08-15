@@ -8,6 +8,7 @@
 import UIKit
 
 final class GetImage {
+
     private var imageCache = NSCache<NSString, UIImage>()
     
     func downloadImage(url: URL, completion: @escaping (UIImage?) -> Void) {

@@ -8,11 +8,13 @@
 import UIKit
 
 class Characters: UIViewController {
+    
     var data: CharactersModel?
     private let navigation = UINavigationItem()
     private let navigationBar = UINavigationBar()
     private var activityIndikatorDelegate: ActivityIndikatorDelegate?
     private let subView = UIView()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -33,9 +35,13 @@ class Characters: UIViewController {
         DispatchQueue.global(qos: .userInteractive).sync {
             self.fetchData()
         }
+//        DispatchQueue.main.async {
+//            self.fetchData()
+//        }
         
-        DispatchQueue.global().asyncAfter(deadline: .now() + 3, execute: {
-            self.importInVCData()
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2, execute: {
+//            self.importInVCData()
             DispatchQueue.main.async {
                 self.activityIndikatorDelegate?.indikator().stopAnimating()
                 self.activityIndikatorDelegate?.setupView().removeFromSuperview()
@@ -121,26 +127,37 @@ class Characters: UIViewController {
     }
     
     private func prevOrNextPage(_ str: String) {
-        DispatchQueue.global().async {
-            let memory = Memory()
-            memory.receivingDataCharacters(str)
-        }
+//        DispatchQueue.global().async {
+//            let memory = Memory()
+//            memory.receivingDataCharacters(str)
+//        }
         
-        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.5) {
-            DispatchQueue.main.async {
-                self.importInVCData()
+        DispatchQueue.global().async {
+            NetworkManager().fetchPage(str: str) { data  in
+                if let decodeData: CharactersModel = NetworkManager().decodeData(data, into: CharactersModel.self) {
+                    self.data = decodeData
+                }
             }
+        }
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.5) {
+                self.importInVCData()
         }
     }
     
     private func fetchData() {
-        let memory = Memory()
-        memory.receivingDataCharacters()
+        
+        NetworkManager().fetchPage(str: FirstPageUrl.characters.rawValue) { data  in
+            if let decodeData: CharactersModel = NetworkManager().decodeData(data, into: CharactersModel.self) {
+                self.data = decodeData
+                DispatchQueue.main.async {
+                    self.setupBarButtomItem()
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
     
     private func importInVCData() {
-        let memory = Memory()
-        data = memory.returnDataCharacters()
         DispatchQueue.main.async {
             self.setupBarButtomItem()
             self.collectionView.reloadData()
