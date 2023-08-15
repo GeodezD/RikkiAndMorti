@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MemoryDelegate: AnyObject {
-    
+
     func receivingDataCharacters(_ str: String)
     func receivingDataEpisodes(_ str: String)
     func receivingDataLocations(_ str: String)
