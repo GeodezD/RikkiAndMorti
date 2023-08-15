@@ -8,6 +8,7 @@
 import UIKit
 
 class LaunchScreen: UIViewController {
+    
    private let viewImage = UIImageView()
     
     override func viewDidLoad() {

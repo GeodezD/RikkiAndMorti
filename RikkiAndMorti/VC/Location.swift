@@ -8,6 +8,7 @@
 import UIKit
 
 class Location: UIViewController {
+    
     let newView = UIView()
     
     override func viewDidLoad() {

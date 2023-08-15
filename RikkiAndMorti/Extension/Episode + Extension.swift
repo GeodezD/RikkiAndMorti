@@ -8,6 +8,7 @@
 import UIKit
 
 extension Episode: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         data?.results.count ?? 0
     }

@@ -24,8 +24,6 @@
 		A16D5B802A67C72F00922462 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B7F2A67C72F00922462 /* Location.swift */; };
 		A17C87042A7BAC2B007C200F /* EpisodeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C87032A7BAC2A007C200F /* EpisodeViewCell.swift */; };
 		A17C87062A7BB0D5007C200F /* EpisodeViewCell + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C87052A7BB0D5007C200F /* EpisodeViewCell + extension.swift */; };
-		A18C56252A67DF5500C5BB9F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56242A67DF5500C5BB9F /* TabBarController.swift */; };
-		A18C56422A6963B200C5BB9F /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56412A6963B200C5BB9F /* Memory.swift */; };
 		A18C56462A69640A00C5BB9F /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56452A69640A00C5BB9F /* protocols.swift */; };
 		A18C56482A6966C100C5BB9F /* EpisodesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56472A6966C100C5BB9F /* EpisodesModel.swift */; };
 		A18C564A2A6966DA00C5BB9F /* LocationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56492A6966DA00C5BB9F /* LocationsModel.swift */; };
@@ -56,8 +54,6 @@
 		A16D5B7F2A67C72F00922462 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		A17C87032A7BAC2A007C200F /* EpisodeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewCell.swift; sourceTree = "<group>"; };
 		A17C87052A7BB0D5007C200F /* EpisodeViewCell + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeViewCell + extension.swift"; sourceTree = "<group>"; };
-		A18C56242A67DF5500C5BB9F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		A18C56412A6963B200C5BB9F /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		A18C56452A69640A00C5BB9F /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		A18C56472A6966C100C5BB9F /* EpisodesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesModel.swift; sourceTree = "<group>"; };
 		A18C56492A6966DA00C5BB9F /* LocationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsModel.swift; sourceTree = "<group>"; };
@@ -116,7 +112,6 @@
 				A122310E2A432162005D23D4 /* Model */,
 				A1D7F6AF2A72827D00A93C2A /* CollectionViewCell */,
 				A1D7F6B02A72863E00A93C2A /* TableViewCell */,
-				A17C87022A7B989B007C200F /* Memory */,
 				A122310A2A4320C7005D23D4 /* Network */,
 				A1BA041C2A4C10C80053019D /* Resurce */,
 			);
@@ -136,7 +131,6 @@
 			isa = PBXGroup;
 			children = (
 				A109E5982A6565A100C3F6C9 /* LaunchScreen.swift */,
-				A18C56242A67DF5500C5BB9F /* TabBarController.swift */,
 				A12230F82A431FC0005D23D4 /* Characters.swift */,
 				A12EB2B72A5C16FC003DC76E /* CharacterViewCell.swift */,
 				A16D5B7D2A67C71200922462 /* Episode.swift */,
@@ -163,14 +157,6 @@
 				A1264FBE2A71153E00B010A4 /* ActivityIndikator.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		A17C87022A7B989B007C200F /* Memory */ = {
-			isa = PBXGroup;
-			children = (
-				A18C56412A6963B200C5BB9F /* Memory.swift */,
-			);
-			path = Memory;
 			sourceTree = "<group>";
 		};
 		A18C56432A6963E600C5BB9F /* Protocols */ = {
@@ -283,9 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A122310D2A432159005D23D4 /* CharactersModel.swift in Sources */,
-				A18C56422A6963B200C5BB9F /* Memory.swift in Sources */,
 				A1264FBF2A71153E00B010A4 /* ActivityIndikator.swift in Sources */,
-				A18C56252A67DF5500C5BB9F /* TabBarController.swift in Sources */,
 				A10933392A4990D30013DB0F /* Characters+Extension.swift in Sources */,
 				A109E5992A6565A100C3F6C9 /* LaunchScreen.swift in Sources */,
 				A18C564C2A696AB200C5BB9F /* NetworkManager.swift in Sources */,

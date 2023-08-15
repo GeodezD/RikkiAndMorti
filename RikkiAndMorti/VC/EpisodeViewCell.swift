@@ -8,11 +8,9 @@
 import UIKit
 
 class EpisodeViewCell: UIViewController {
+    
     var indexPathCelltable: Int?
-    
-  
-//    var data: EpisodesModel?
-    
+
     private let navigation = UINavigationItem()
     private let navigationBar = UINavigationBar()
     private let collectionView: UICollectionView = {
