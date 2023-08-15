@@ -10,9 +10,9 @@ import UIKit
 class Episode: UIViewController {
     
     var data: EpisodesModel?
+    private let activityIndikator = ActivityIndikator()
     private let navigation = UINavigationItem()
-    private let activityIndikator = UIActivityIndicatorView()
-    private var activityIndikatorDelegate: ActivityIndikatorDelegate?
+    private let time = 0.5
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -25,21 +25,19 @@ class Episode: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
-        activityIndikatorDelegate = ActivityIndikator()
-        guard let activityIndikatorDelegate = activityIndikatorDelegate else { return }
-        activityIndikatorDelegate.setupView().frame = view.frame
-        view.addSubview(activityIndikatorDelegate.setupView())
-        activityIndikatorDelegate.indikator().startAnimating()
+        startAcitivityIndikator()
         
         DispatchQueue.global().sync {
             self.takeData()
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            self.activityIndikatorDelegate?.indikator().stopAnimating()
-            self.activityIndikatorDelegate?.setupView().removeFromSuperview()
-        })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//            activityIndikator.indikator().stopAnimating()
+//            activityIndikator.setupView().removeFromSuperview()
+//        })
+        DispatchQueue.global(qos: .userInteractive).sync {
+            self.takeData()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -56,6 +54,7 @@ class Episode: UIViewController {
         tableView.delegate = self
         tableView.layer.cornerRadius = 20
         tableView.register(.init(nibName: "EpisodeTableViewCell", bundle: nil), forCellReuseIdentifier: "EpisodeTableViewCell")
+        
         view.addSubview(tableView)
     }
     
@@ -69,14 +68,75 @@ class Episode: UIViewController {
         ])
     }
     
-    func takeData() {
-        NetworkManager().fetchPage(str: FirstPageUrl.episodes.rawValue) { data  in
+    private func takeData(_ url: String = FirstPageUrl.episodes.rawValue) {
+        NetworkManager().fetchPage(str: url) { data  in
             if let decodeData: EpisodesModel = NetworkManager().decodeData(data, into: EpisodesModel.self) {
                 self.data = decodeData
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    self.collectionView.reloadData()
+                    self.setupBarButtomItem()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + self.time, execute: {
+                        self.stopAcitivityIndikator()
+                    })
                 }
             }
         }
     }
+    
+    private func reloadData() {
+        DispatchQueue.main.async {
+            self.setupBarButtomItem()
+            self.collectionView.reloadData()
+            self.stopAcitivityIndikator()
+        }
+    }
+    
+    func coollectionViewScrollTop() {
+        let sectionCount = collectionView.numberOfSections
+        let lastSection = sectionCount - 1
+        let itemCount = collectionView.numberOfItems(inSection: lastSection)
+        guard itemCount > 0 else { return }
+        let firstItemIndexPath = IndexPath(item: 0, section: lastSection)
+        collectionView.scrollToItem(at: firstItemIndexPath, at: .bottom, animated: true)
+    }
+    
+//    @objc func nextPage() {
+//        startAcitivityIndikator()
+//        guard let next = self.data?.info.next else { return }
+//        prevOrNextPage(next)
+//        coollectionViewScrollTop()
+//    }
+//
+//    @objc func prevPage() {
+//        startAcitivityIndikator()
+//        guard let prev = self.data?.info.prev else { return }
+//        prevOrNextPage(prev)
+//        coollectionViewScrollTop()
+//    }
+    
+    private func setupBarButtomItem() {
+        switch (data?.info.prev, data?.info.next) {
+        case (data?.info.prev, _) where data?.info.prev == nil:
+            navigation.rightBarButtonItem?.isHidden = false
+            navigation.leftBarButtonItem?.isHidden = true
+        case (_, data?.info.next) where data?.info.next == nil:
+            navigation.rightBarButtonItem?.isHidden = true
+            navigation.leftBarButtonItem?.isHidden = false
+        default:
+            navigation.rightBarButtonItem?.isHidden = false
+            navigation.leftBarButtonItem?.isHidden = false
+        }
+    }
+    
+    func startAcitivityIndikator() {
+        activityIndikator.takeFrame(frame: view.frame)
+        view.addSubview(activityIndikator.setupView())
+        activityIndikator.indikator().startAnimating()
+    }
+    
+    func stopAcitivityIndikator() {
+        self.activityIndikator.indikator().stopAnimating()
+        self.activityIndikator.setupView().removeFromSuperview()
+    }
+    
 }

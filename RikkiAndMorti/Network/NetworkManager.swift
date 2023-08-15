@@ -64,53 +64,55 @@ final class NetworkManager: NetworkDelegate {
         }
     }
     
-    func returnDataFromUserDafaults<T: Decodable>(into type: T.Type) -> T? {
+    func returnDataFromUserDafaults<T>(into type: T.Type) -> T? {
         var returnData: T?
+        let decoder = JSONDecoder()
         switch type {
         case is CharactersModel.Type:
-
+            
             let data = UserDefaults.standard.data(forKey: "Characters")
             do {
                 guard let forceData = data else { fatalError("I'm don't have DATA") }
-                returnData = try JSONDecoder().decode(CharactersModel.self, from: forceData) as? T
+                returnData = try decoder.decode(CharactersModel.self, from: forceData) as? T
             } catch {
                 print("error: ", error)
             }
             return returnData
-
+            
         case is EpisodesModel.Type:
-
+            
             let data = UserDefaults.standard.data(forKey: "Episodes")
             do {
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
                 guard let forceData = data else { fatalError("I'm don't have DATA") }
-                returnData = try JSONDecoder().decode(EpisodesModel.self, from: forceData) as? T
+                returnData = try decoder.decode(EpisodesModel.self, from: forceData) as? T
             } catch {
                 print("error: ", error)
             }
             return returnData
-
+            
         case is LocationsModel.Type:
-
+            
             let data = UserDefaults.standard.data(forKey: "Locations")
             do {
                 guard let forceData = data else { fatalError("I'm don't have DATA") }
-                returnData = try JSONDecoder().decode(LocationsModel.self, from: forceData) as? T
+                returnData = try decoder.decode(LocationsModel.self, from: forceData) as? T
             } catch {
                 print("error: ", error)
             }
             return returnData
-
+            
         case is ResultsCharacters.Type:
-
+            
             let data = UserDefaults.standard.data(forKey: "Character")
             do {
                 guard let forceData = data else { fatalError("I'm don't have DATA") }
-                returnData = try JSONDecoder().decode(ResultsCharacters.self, from: forceData) as? T
+                returnData = try decoder.decode(ResultsCharacters.self, from: forceData) as? T
             } catch {
                 print("error: ", error)
             }
             return returnData
-
+            
         default:
             break
         }

@@ -34,4 +34,8 @@ final class GetImage {
             dataTask.resume()
         }
     }
+    
+    func clearCache() {
+        imageCache.removeAllObjects()
+    }
 }

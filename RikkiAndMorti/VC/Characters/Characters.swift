@@ -10,10 +10,11 @@ import UIKit
 class Characters: UIViewController {
     
     var data: CharactersModel?
+    private let activityIndikator = ActivityIndikator()
     private let navigation = UINavigationItem()
     private let navigationBar = UINavigationBar()
-    private var activityIndikatorDelegate: ActivityIndikatorDelegate?
     private let subView = UIView()
+    private let time = 0.5
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -25,33 +26,16 @@ class Characters: UIViewController {
         super.viewDidLoad()
         setup()
         addView()
+        startAcitivityIndikator()
         
-        activityIndikatorDelegate = ActivityIndikator()
-        guard let activityIndikatorDelegate = activityIndikatorDelegate else { return }
-        activityIndikatorDelegate.setupView().frame = view.frame
-        view.addSubview(activityIndikatorDelegate.setupView())
-        activityIndikatorDelegate.indikator().startAnimating()
-    
         DispatchQueue.global(qos: .userInteractive).sync {
-            self.fetchData()
+            self.takeData()
         }
-//        DispatchQueue.main.async {
-//            self.fetchData()
-//        }
-        
-        
-        DispatchQueue.global().asyncAfter(deadline: .now() + 2, execute: {
-//            self.importInVCData()
-            DispatchQueue.main.async {
-                self.activityIndikatorDelegate?.indikator().stopAnimating()
-                self.activityIndikatorDelegate?.setupView().removeFromSuperview()
-            }
-        })
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        setupPosition()
+        setupConstraint()
     }
     
     func addView() {
@@ -78,46 +62,50 @@ class Characters: UIViewController {
         layout.minimumInteritemSpacing = 1
         layout.minimumLineSpacing = 2
         layout.scrollDirection = .vertical
+        
+        activityIndikator.takeFrame(frame: view.frame)
     }
     
-    private func setupPosition() {
-            subView.translatesAutoresizingMaskIntoConstraints = false
-            navigationBar.translatesAutoresizingMaskIntoConstraints = false
-            collectionView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupConstraint() {
+        subView.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            subView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
+            subView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+            subView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+            subView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
             
-            NSLayoutConstraint.activate([
-                subView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
-                subView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-                subView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
-                subView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-                
-                navigationBar.leadingAnchor.constraint(equalTo: subView.leadingAnchor
-                                                       , constant: 0),
-                navigationBar.topAnchor.constraint(equalTo: subView.topAnchor, constant: 0),
-                navigationBar.trailingAnchor.constraint(equalTo: subView.trailingAnchor, constant: 0),
-                navigationBar.heightAnchor.constraint(equalToConstant: 44),
-                
-                collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 0),
-                collectionView.bottomAnchor.constraint(equalTo: subView.bottomAnchor, constant: 0),
-                collectionView.leadingAnchor.constraint(equalTo: subView.leadingAnchor, constant: 0),
-                collectionView.trailingAnchor.constraint(equalTo: subView.trailingAnchor, constant: 0),
-                
-            ])
-        }
+            navigationBar.leadingAnchor.constraint(equalTo: subView.leadingAnchor
+                                                   , constant: 0),
+            navigationBar.topAnchor.constraint(equalTo: subView.topAnchor, constant: 0),
+            navigationBar.trailingAnchor.constraint(equalTo: subView.trailingAnchor, constant: 0),
+            navigationBar.heightAnchor.constraint(equalToConstant: 44),
+            
+            collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 0),
+            collectionView.bottomAnchor.constraint(equalTo: subView.bottomAnchor, constant: 0),
+            collectionView.leadingAnchor.constraint(equalTo: subView.leadingAnchor, constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: subView.trailingAnchor, constant: 0),
+            
+        ])
+    }
     
     @objc func nextPage() {
+        startAcitivityIndikator()
         guard let next = self.data?.info.next else { return }
-        prevOrNextPage(next)
+        takeData(next)
         coollectionViewScrollTop()
     }
     
     @objc func prevPage() {
+        startAcitivityIndikator()
         guard let prev = self.data?.info.prev else { return }
-        prevOrNextPage(prev)
+        takeData(prev)
         coollectionViewScrollTop()
     }
     
-    func coollectionViewScrollTop() {
+    private func coollectionViewScrollTop() {
         let sectionCount = collectionView.numberOfSections
         let lastSection = sectionCount - 1
         let itemCount = collectionView.numberOfItems(inSection: lastSection)
@@ -126,43 +114,28 @@ class Characters: UIViewController {
         collectionView.scrollToItem(at: firstItemIndexPath, at: .bottom, animated: true)
     }
     
-    private func prevOrNextPage(_ str: String) {
-//        DispatchQueue.global().async {
-//            let memory = Memory()
-//            memory.receivingDataCharacters(str)
-//        }
-        
-        DispatchQueue.global().async {
-            NetworkManager().fetchPage(str: str) { data  in
-                if let decodeData: CharactersModel = NetworkManager().decodeData(data, into: CharactersModel.self) {
-                    self.data = decodeData
-                }
-            }
-        }
-        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.5) {
-                self.importInVCData()
-        }
-    }
-    
-    private func fetchData() {
-        
-        NetworkManager().fetchPage(str: FirstPageUrl.characters.rawValue) { data  in
+    private func takeData(_ url: String = FirstPageUrl.characters.rawValue) {
+        NetworkManager().fetchPage(str: url) { data  in
             if let decodeData: CharactersModel = NetworkManager().decodeData(data, into: CharactersModel.self) {
                 self.data = decodeData
                 DispatchQueue.main.async {
-                    self.setupBarButtomItem()
                     self.collectionView.reloadData()
+                    self.setupBarButtomItem()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + self.time, execute: {
+                        self.stopAcitivityIndikator()
+                    })
                 }
             }
         }
     }
     
-    private func importInVCData() {
-        DispatchQueue.main.async {
-            self.setupBarButtomItem()
-            self.collectionView.reloadData()
-        }
-    }
+//    private func reloadData() {
+//        DispatchQueue.main.async {
+//            self.setupBarButtomItem()
+//            self.collectionView.reloadData()
+//            self.stopAcitivityIndikator()
+//        }
+//    }
     
     private func setupBarButtomItem() {
         switch (data?.info.prev, data?.info.next) {
@@ -176,6 +149,17 @@ class Characters: UIViewController {
             navigation.rightBarButtonItem?.isHidden = false
             navigation.leftBarButtonItem?.isHidden = false
         }
+    }
+    
+    private func startAcitivityIndikator() {
+        activityIndikator.takeFrame(frame: view.frame)
+        view.addSubview(activityIndikator.setupView())
+        activityIndikator.indikator().startAnimating()
+    }
+    
+    private func stopAcitivityIndikator() {
+        self.activityIndikator.indikator().stopAnimating()
+        self.activityIndikator.setupView().removeFromSuperview()
     }
 }
 

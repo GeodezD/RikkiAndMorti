@@ -8,12 +8,17 @@
 import UIKit
 
 class CharacterViewCell: UIViewController {
-    private let memory = Memory()
+    
     var indexPathCell: Int?
     private let viewImage = UIImageView()
     private let navigation = UINavigationItem()
     private let navigationBar = UINavigationBar()
     private let generalView = UIView()
+    private let myData: CharactersModel = {
+        let network = NetworkManager()
+        guard let data = network.returnDataFromUserDafaults(into: CharactersModel.self) else { fatalError()}
+        return data
+    }()
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -84,15 +89,15 @@ class CharacterViewCell: UIViewController {
         guard let indexPathCell = indexPathCell else { return }
         let data = [
             "NAME:",
-            memory.returnDataCharacters().results[indexPathCell].name,
+            myData.results[indexPathCell].name,
             "STATUS:",
-            memory.returnDataCharacters().results[indexPathCell].status,
+            myData.results[indexPathCell].status,
             "GENDER:",
-            memory.returnDataCharacters().results[indexPathCell].gender,
+            myData.results[indexPathCell].gender,
             "SPECIES:",
-            memory.returnDataCharacters().results[indexPathCell].species,
+            myData.results[indexPathCell].species,
             "LOCATION:",
-            memory.returnDataCharacters().results[indexPathCell].origin.name,
+            myData.results[indexPathCell].origin.name,
         ]
         
         for index in 0..<data.count {
@@ -159,8 +164,7 @@ class CharacterViewCell: UIViewController {
     
     private func downloadImage() {
         guard let indexPathCell = indexPathCell else { return }
-        print(memory.returnDataCharacters().results[indexPathCell])
-        let data = memory.returnDataCharacters().results[indexPathCell].image
+        let data = myData.results[indexPathCell].image
         DispatchQueue.main.async {
             guard let url = URL(string: data) else { fatalError( "Error" ) }
             GetImage().downloadImage(url: url) { image in
