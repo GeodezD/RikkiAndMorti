@@ -24,15 +24,15 @@ final class TabBarController: UITabBarController {
         let vc4 = SettingViewController()
         
         
-//        let nav1 = UINavigationController(rootViewController: vc1)
-//        let nav2 = UINavigationController(rootViewController: vc2)
-//        let nav3 = UINavigationController(rootViewController: vc3)
-//        let nav4 = UINavigationController(rootViewController: vc4)
-        
-        let nav1 = UINavigationController(rootViewController: vc3)
+        let nav1 = UINavigationController(rootViewController: vc1)
         let nav2 = UINavigationController(rootViewController: vc2)
-        let nav3 = UINavigationController(rootViewController: vc1)
+        let nav3 = UINavigationController(rootViewController: vc3)
         let nav4 = UINavigationController(rootViewController: vc4)
+        
+//        let nav1 = UINavigationController(rootViewController: vc3)
+//        let nav2 = UINavigationController(rootViewController: vc2)
+//        let nav3 = UINavigationController(rootViewController: vc1)
+//        let nav4 = UINavigationController(rootViewController: vc4)
         
         nav1.isNavigationBarHidden = true
         nav2.isNavigationBarHidden = true
