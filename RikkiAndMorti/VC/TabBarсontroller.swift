@@ -1,5 +1,5 @@
 //
-//  TabBarcontroller.swift
+//  TabBarСontroller.swift
 //  RikkiAndMorti
 //
 //  Created by Дмитро Сегейда on 19.07.2023.
