@@ -27,4 +27,3 @@ class SettingViewController: UIViewController {
         view.addSubview(button)
     }
 }
- 
