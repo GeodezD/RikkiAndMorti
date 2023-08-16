@@ -20,12 +20,11 @@
 		A12EB2B82A5C16FC003DC76E /* CharacterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12EB2B72A5C16FC003DC76E /* CharacterViewCell.swift */; };
 		A1415DF12A8641D900FECD2B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1415DF02A8641D900FECD2B /* SettingViewController.swift */; };
 		A1415DFA2A8A6D1800FECD2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1415DF92A8A6D1800FECD2B /* Media.xcassets */; };
-
+		A1415DFE2A8B76DB00FECD2B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1415DFD2A8B76DB00FECD2B /* TabBarController.swift */; };
 		A16D5B7E2A67C71200922462 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B7D2A67C71200922462 /* Episode.swift */; };
 		A16D5B802A67C72F00922462 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B7F2A67C72F00922462 /* Location.swift */; };
 		A17C87042A7BAC2B007C200F /* EpisodeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C87032A7BAC2A007C200F /* EpisodeViewCell.swift */; };
 		A17C87062A7BB0D5007C200F /* EpisodeViewCell + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C87052A7BB0D5007C200F /* EpisodeViewCell + extension.swift */; };
-
 		A18C56462A69640A00C5BB9F /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56452A69640A00C5BB9F /* protocols.swift */; };
 		A18C56482A6966C100C5BB9F /* EpisodesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56472A6966C100C5BB9F /* EpisodesModel.swift */; };
 		A18C564A2A6966DA00C5BB9F /* LocationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C56492A6966DA00C5BB9F /* LocationsModel.swift */; };
@@ -52,12 +51,11 @@
 		A12EB2B72A5C16FC003DC76E /* CharacterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewCell.swift; sourceTree = "<group>"; };
 		A1415DF02A8641D900FECD2B /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		A1415DF92A8A6D1800FECD2B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = Assets.xcassets/Media.xcassets; sourceTree = "<group>"; };
-
+		A1415DFD2A8B76DB00FECD2B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		A16D5B7D2A67C71200922462 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		A16D5B7F2A67C72F00922462 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		A17C87032A7BAC2A007C200F /* EpisodeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewCell.swift; sourceTree = "<group>"; };
 		A17C87052A7BB0D5007C200F /* EpisodeViewCell + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeViewCell + extension.swift"; sourceTree = "<group>"; };
-
 		A18C56452A69640A00C5BB9F /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		A18C56472A6966C100C5BB9F /* EpisodesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesModel.swift; sourceTree = "<group>"; };
 		A18C56492A6966DA00C5BB9F /* LocationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsModel.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				A16D5B812A67D32000922462 /* Views */,
 				A122310B2A4320D3005D23D4 /* VC */,
 				A10933372A4990B70013DB0F /* Extension */,
-
 				A1D7F6AF2A72827D00A93C2A /* CollectionViewCell */,
 				A1D7F6B02A72863E00A93C2A /* TableViewCell */,
 				A122310A2A4320C7005D23D4 /* Network */,
@@ -136,7 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				A109E5982A6565A100C3F6C9 /* LaunchScreen.swift */,
-
+				A1415DFD2A8B76DB00FECD2B /* TabBarController.swift */,
 				A12230F82A431FC0005D23D4 /* Characters.swift */,
 				A12EB2B72A5C16FC003DC76E /* CharacterViewCell.swift */,
 				A16D5B7D2A67C71200922462 /* Episode.swift */,
@@ -276,7 +273,6 @@
 			files = (
 				A122310D2A432159005D23D4 /* CharactersModel.swift in Sources */,
 				A1264FBF2A71153E00B010A4 /* ActivityIndikator.swift in Sources */,
-
 				A10933392A4990D30013DB0F /* Characters+Extension.swift in Sources */,
 				A109E5992A6565A100C3F6C9 /* LaunchScreen.swift in Sources */,
 				A18C564C2A696AB200C5BB9F /* NetworkManager.swift in Sources */,
@@ -288,7 +284,7 @@
 				A16D5B7E2A67C71200922462 /* Episode.swift in Sources */,
 				A1BA041E2A4C31230053019D /* GetImage.swift in Sources */,
 				A1D7F6BD2A73EB4300A93C2A /* EpisodeTableViewCell.swift in Sources */,
-
+				A1415DFE2A8B76DB00FECD2B /* TabBarController.swift in Sources */,
 				A1D7F6AB2A727D5700A93C2A /* Episode + Extension.swift in Sources */,
 				A12230F92A431FC0005D23D4 /* Characters.swift in Sources */,
 				A17C87062A7BB0D5007C200F /* EpisodeViewCell + extension.swift in Sources */,

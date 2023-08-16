@@ -8,8 +8,6 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-
-    private let navigationBar = UINavigationBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()

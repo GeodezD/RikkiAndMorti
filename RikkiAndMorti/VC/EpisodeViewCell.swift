@@ -10,7 +10,8 @@ import UIKit
 class EpisodeViewCell: UIViewController {
     
     var indexPathCelltable: Int?
-
+    var arrayCharacters = [ResultsCharacters?]()
+    
     private let navigation = UINavigationItem()
     private let navigationBar = UINavigationBar()
     private let collectionView: UICollectionView = {
@@ -22,15 +23,21 @@ class EpisodeViewCell: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        
+//        DispatchQueue.global(qos: .userInteractive).sync {
+//            self.loadData()
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupViewsConstraints()
+        collectionView.reloadData()
     }
     
     private func setup() {
@@ -80,5 +87,35 @@ class EpisodeViewCell: UIViewController {
                                                    constant: -8)
         ])
     }
+    
+//    func loadData(indexPath: IndexPath, completion: @escaping (ResultsCharacters?) -> Void ) {
+//
+//        let data: EpisodesModel? = NetworkManager().returnDataFromUserDafaults(into: EpisodesModel.self)
+//
+//        if let data, let indexPathCelltable {
+//            let str = data.results[indexPathCelltable].characters[indexPath.item]
+//
+//            NetworkManager().fetchPage(str: str) { data in
+//                let decodedPerson: ResultsCharacters? = NetworkManager().decodeData(data, into: ResultsCharacters.self)
+//                completion(decodedPerson)
+//            }
+//        }
+//    }
+    
+    func loadData() {
+        
+        let data: EpisodesModel? = NetworkManager().returnDataFromUserDafaults(into: EpisodesModel.self)
+        
+        if let data, let indexPathCelltable {
+            var arrayCharacters: [ResultsCharacters?] = []
+            for url in data.results[indexPathCelltable].characters {
+                NetworkManager().fetchPage(str: url) { data in
+                    let decodedPerson: ResultsCharacters? = NetworkManager().decodeData(data, into: ResultsCharacters.self)
+                    arrayCharacters.append(decodedPerson)
+                }
+            }
+        }
+    }
+    
     
 }

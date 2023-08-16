@@ -25,19 +25,12 @@ class Episode: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        startAcitivityIndikator()
-        
-        DispatchQueue.global().sync {
-            self.takeData()
-        }
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-//            activityIndikator.indikator().stopAnimating()
-//            activityIndikator.setupView().removeFromSuperview()
-//        })
         DispatchQueue.global(qos: .userInteractive).sync {
             self.takeData()
         }
+        startAcitivityIndikator()
+        
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -73,7 +66,7 @@ class Episode: UIViewController {
             if let decodeData: EpisodesModel = NetworkManager().decodeData(data, into: EpisodesModel.self) {
                 self.data = decodeData
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.tableView.reloadData()
                     self.setupBarButtomItem()
                     DispatchQueue.main.asyncAfter(deadline: .now() + self.time, execute: {
                         self.stopAcitivityIndikator()

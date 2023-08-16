@@ -46,6 +46,25 @@ extension Episode: UITableViewDataSource, UITableViewDelegate {
         print("\(indexPath.item)")
         let viewCell = EpisodeViewCell()
         viewCell.indexPathCelltable = indexPath.item
+        loadData(indexPath: indexPath)
         navigationController?.pushViewController(viewCell, animated: true)
+    }
+    
+    func loadData(indexPath: IndexPath) {
+        
+        let data: EpisodesModel? = NetworkManager().returnDataFromUserDafaults(into: EpisodesModel.self)
+        
+        if let data {
+            var arrayCharacters: [ResultsCharacters?] = []
+            print(data.results[indexPath.item].characters.count)
+            print("--------")
+            var i = 0
+            for url in data.results[indexPath.item].characters {
+
+            }
+            print("+++++++++++")
+            print(arrayCharacters.count)
+            EpisodeViewCell().arrayCharacters = arrayCharacters
+        }
     }
 }

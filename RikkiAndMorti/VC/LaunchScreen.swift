@@ -26,6 +26,6 @@ class LaunchScreen: UIViewController {
     }
     
     func nextViewController() {
-        navigationController?.pushViewController(TabBarController(), animated: true)
+        navigationController?.pushViewController(TabBarController(), animated: true) 
     }
 }

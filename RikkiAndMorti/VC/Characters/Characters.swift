@@ -129,14 +129,6 @@ class Characters: UIViewController {
         }
     }
     
-//    private func reloadData() {
-//        DispatchQueue.main.async {
-//            self.setupBarButtomItem()
-//            self.collectionView.reloadData()
-//            self.stopAcitivityIndikator()
-//        }
-//    }
-    
     private func setupBarButtomItem() {
         switch (data?.info.prev, data?.info.next) {
         case (data?.info.prev, _) where data?.info.prev == nil:
@@ -154,12 +146,11 @@ class Characters: UIViewController {
     private func startAcitivityIndikator() {
         activityIndikator.takeFrame(frame: view.frame)
         view.addSubview(activityIndikator.setupView())
-        activityIndikator.indikator().startAnimating()
+        activityIndikator.activate(.on)
     }
     
     private func stopAcitivityIndikator() {
-        self.activityIndikator.indikator().stopAnimating()
-        self.activityIndikator.setupView().removeFromSuperview()
+        self.activityIndikator.activate(.off)
     }
 }
 
