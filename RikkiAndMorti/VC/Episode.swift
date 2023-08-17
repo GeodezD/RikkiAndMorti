@@ -20,7 +20,11 @@ class Episode: UIViewController {
         return collectionView
     }()
     
-    private let tableView = UITableView(frame: .zero, style: .plain)
+//    private let tableView = UITableView(frame: .zero, style: .plain)
+    
+    
+    private let tableView = TableView(frame: .zero, style: .plain).setupTableView()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,25 +33,17 @@ class Episode: UIViewController {
             self.takeData()
         }
         startAcitivityIndikator()
-        
-
     }
     
-    override func viewWillLayoutSubviews() {
+    
+    override func viewDidLayoutSubviews() {
         setupConstraint()
     }
     
     private func setup() {
         view.backgroundColor = .white
-        tableView.separatorColor = .red
-        tableView.separatorStyle = .singleLine
-        tableView.separatorInsetReference = .fromCellEdges
-        tableView.separatorInset = UIEdgeInsets(top: 100, left: 0, bottom: 20, right: 0);
-        tableView.dataSource = self
         tableView.delegate = self
-        tableView.layer.cornerRadius = 20
-        tableView.register(.init(nibName: "EpisodeTableViewCell", bundle: nil), forCellReuseIdentifier: "EpisodeTableViewCell")
-        
+        tableView.dataSource = self
         view.addSubview(tableView)
     }
     
@@ -69,28 +65,11 @@ class Episode: UIViewController {
                     self.tableView.reloadData()
                     self.setupBarButtomItem()
                     DispatchQueue.main.asyncAfter(deadline: .now() + self.time, execute: {
-                        self.stopAcitivityIndikator()
+                        self.activityIndikator.activate(.off)
                     })
                 }
             }
         }
-    }
-    
-    private func reloadData() {
-        DispatchQueue.main.async {
-            self.setupBarButtomItem()
-            self.collectionView.reloadData()
-            self.stopAcitivityIndikator()
-        }
-    }
-    
-    func coollectionViewScrollTop() {
-        let sectionCount = collectionView.numberOfSections
-        let lastSection = sectionCount - 1
-        let itemCount = collectionView.numberOfItems(inSection: lastSection)
-        guard itemCount > 0 else { return }
-        let firstItemIndexPath = IndexPath(item: 0, section: lastSection)
-        collectionView.scrollToItem(at: firstItemIndexPath, at: .bottom, animated: true)
     }
     
 //    @objc func nextPage() {
@@ -124,12 +103,6 @@ class Episode: UIViewController {
     func startAcitivityIndikator() {
         activityIndikator.takeFrame(frame: view.frame)
         view.addSubview(activityIndikator.setupView())
-        activityIndikator.indikator().startAnimating()
+        activityIndikator.activate(.on)
     }
-    
-    func stopAcitivityIndikator() {
-        self.activityIndikator.indikator().stopAnimating()
-        self.activityIndikator.setupView().removeFromSuperview()
-    }
-    
 }

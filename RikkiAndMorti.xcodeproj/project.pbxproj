@@ -21,6 +21,8 @@
 		A1415DF12A8641D900FECD2B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1415DF02A8641D900FECD2B /* SettingViewController.swift */; };
 		A1415DFA2A8A6D1800FECD2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1415DF92A8A6D1800FECD2B /* Media.xcassets */; };
 		A1415DFE2A8B76DB00FECD2B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1415DFD2A8B76DB00FECD2B /* TabBarController.swift */; };
+		A16CE65B2A8DFBD3000866CA /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16CE65A2A8DFBD3000866CA /* TableView.swift */; };
+		A16CE65D2A8DFBE4000866CA /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16CE65C2A8DFBE4000866CA /* CollectionView.swift */; };
 		A16D5B7E2A67C71200922462 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B7D2A67C71200922462 /* Episode.swift */; };
 		A16D5B802A67C72F00922462 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D5B7F2A67C72F00922462 /* Location.swift */; };
 		A17C87042A7BAC2B007C200F /* EpisodeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C87032A7BAC2A007C200F /* EpisodeViewCell.swift */; };
@@ -52,6 +54,8 @@
 		A1415DF02A8641D900FECD2B /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		A1415DF92A8A6D1800FECD2B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = Assets.xcassets/Media.xcassets; sourceTree = "<group>"; };
 		A1415DFD2A8B76DB00FECD2B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		A16CE65A2A8DFBD3000866CA /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		A16CE65C2A8DFBE4000866CA /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		A16D5B7D2A67C71200922462 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		A16D5B7F2A67C72F00922462 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		A17C87032A7BAC2A007C200F /* EpisodeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewCell.swift; sourceTree = "<group>"; };
@@ -158,6 +162,11 @@
 			isa = PBXGroup;
 			children = (
 				A1264FBE2A71153E00B010A4 /* ActivityIndikator.swift */,
+				A16CE65A2A8DFBD3000866CA /* TableView.swift */,
+				A1D7F6BB2A73EB4300A93C2A /* EpisodeTableViewCell.swift */,
+				A1D7F6BC2A73EB4300A93C2A /* EpisodeTableViewCell.xib */,
+				A16CE65C2A8DFBE4000866CA /* CollectionView.swift */,
+				A109333A2A4993D10013DB0F /* CustomCellCharacters.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,7 +194,6 @@
 		A1D7F6AF2A72827D00A93C2A /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				A109333A2A4993D10013DB0F /* CustomCellCharacters.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -193,8 +201,6 @@
 		A1D7F6B02A72863E00A93C2A /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				A1D7F6BB2A73EB4300A93C2A /* EpisodeTableViewCell.swift */,
-				A1D7F6BC2A73EB4300A93C2A /* EpisodeTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -277,9 +283,11 @@
 				A109E5992A6565A100C3F6C9 /* LaunchScreen.swift in Sources */,
 				A18C564C2A696AB200C5BB9F /* NetworkManager.swift in Sources */,
 				A12EB2B82A5C16FC003DC76E /* CharacterViewCell.swift in Sources */,
+				A16CE65D2A8DFBE4000866CA /* CollectionView.swift in Sources */,
 				A109333B2A4993D10013DB0F /* CustomCellCharacters.swift in Sources */,
 				A16D5B802A67C72F00922462 /* Location.swift in Sources */,
 				A18C564A2A6966DA00C5BB9F /* LocationsModel.swift in Sources */,
+				A16CE65B2A8DFBD3000866CA /* TableView.swift in Sources */,
 				A1415DF12A8641D900FECD2B /* SettingViewController.swift in Sources */,
 				A16D5B7E2A67C71200922462 /* Episode.swift in Sources */,
 				A1BA041E2A4C31230053019D /* GetImage.swift in Sources */,

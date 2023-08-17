@@ -39,32 +39,22 @@ extension Episode: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return view.frame.height / 9
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.item)")
         let viewCell = EpisodeViewCell()
         viewCell.indexPathCelltable = indexPath.item
-        loadData(indexPath: indexPath)
-        navigationController?.pushViewController(viewCell, animated: true)
-    }
-    
-    func loadData(indexPath: IndexPath) {
         
-        let data: EpisodesModel? = NetworkManager().returnDataFromUserDafaults(into: EpisodesModel.self)
+        let activityIndikator = ActivityIndikator()
+        activityIndikator.takeFrame(frame: view.frame)
+        view.addSubview(activityIndikator.setupView())
+        activityIndikator.activate(.on)
         
-        if let data {
-            var arrayCharacters: [ResultsCharacters?] = []
-            print(data.results[indexPath.item].characters.count)
-            print("--------")
-            var i = 0
-            for url in data.results[indexPath.item].characters {
-
-            }
-            print("+++++++++++")
-            print(arrayCharacters.count)
-            EpisodeViewCell().arrayCharacters = arrayCharacters
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(viewCell, animated: true)
+            activityIndikator.activate(.off)
         }
     }
 }

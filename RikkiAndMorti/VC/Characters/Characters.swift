@@ -16,11 +16,7 @@ class Characters: UIViewController {
     private let subView = UIView()
     private let time = 0.5
     
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        return collectionView
-    }()
+    private let collectionView = CollectionView(frame: .zero, collectionViewLayout: .init()).setupCollectionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +32,12 @@ class Characters: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupConstraint()
+        activityIndikator.takeFrame(frame: view.frame)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
     }
     
     func addView() {
@@ -53,18 +55,10 @@ class Characters: UIViewController {
         let back = UIBarButtonItem(title: "Prev", style: .plain, target: self, action: #selector(prevPage))
         self.navigation.leftBarButtonItem = back
         
-        collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(CustomCellCharacters.self, forCellWithReuseIdentifier: "cell")
-        collectionView.backgroundColor = .systemGray6
-        guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        layout.itemSize = .init(width: 175, height: 200)
-        layout.minimumInteritemSpacing = 1
-        layout.minimumLineSpacing = 2
-        layout.scrollDirection = .vertical
-        
-        activityIndikator.takeFrame(frame: view.frame)
+        collectionView.dataSource = self
     }
+    
     
     private func setupConstraint() {
         subView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +81,6 @@ class Characters: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: subView.bottomAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: subView.leadingAnchor, constant: 0),
             collectionView.trailingAnchor.constraint(equalTo: subView.trailingAnchor, constant: 0),
-            
         ])
     }
     
@@ -122,7 +115,7 @@ class Characters: UIViewController {
                     self.collectionView.reloadData()
                     self.setupBarButtomItem()
                     DispatchQueue.main.asyncAfter(deadline: .now() + self.time, execute: {
-                        self.stopAcitivityIndikator()
+                        self.activityIndikator.activate(.off)
                     })
                 }
             }
@@ -147,10 +140,6 @@ class Characters: UIViewController {
         activityIndikator.takeFrame(frame: view.frame)
         view.addSubview(activityIndikator.setupView())
         activityIndikator.activate(.on)
-    }
-    
-    private func stopAcitivityIndikator() {
-        self.activityIndikator.activate(.off)
     }
 }
 

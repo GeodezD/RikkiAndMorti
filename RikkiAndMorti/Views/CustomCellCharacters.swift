@@ -50,6 +50,7 @@ class CustomCellCharacters: UICollectionViewCell {
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
             label.heightAnchor.constraint(equalToConstant: 20),
+            
             viewImage.topAnchor.constraint(equalTo: topAnchor, constant: 4),
             viewImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             viewImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
