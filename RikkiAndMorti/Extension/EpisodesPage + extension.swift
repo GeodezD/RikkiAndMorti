@@ -7,14 +7,14 @@
 
 import UIKit
 
-extension Episode: UITableViewDataSource, UITableViewDelegate {
+extension EpisodesPage: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         data?.results.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let data = data else { fatalError(" None data ") }
+        guard let data = data else { fatalError(" None data") }
         let cell = tableView.dequeueReusableCell(withIdentifier: "EpisodeTableViewCell", for: indexPath)
         guard let episodeCell = cell as? EpisodeTableViewCell else { fatalError("EpisodeTableViewCell = NIL") }
         
@@ -44,7 +44,7 @@ extension Episode: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.item)")
-        let viewCell = EpisodeViewCell()
+        let viewCell = Episode()
         viewCell.indexPathCelltable = indexPath.item
         
         let activityIndikator = ActivityIndikator()

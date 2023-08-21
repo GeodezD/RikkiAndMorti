@@ -1,5 +1,5 @@
 //
-//  Episode.swift
+//  LocationCharacter.swift
 //  RikkiAndMorti
 //
 //  Created by Дмитро Сегейда on 19.07.2023.
@@ -7,24 +7,11 @@
 
 import UIKit
 
-class Episode: UIViewController {
-    
-    var data: EpisodesModel?
+class LocationsPage: UIViewController {
+    var data: LocationsModel?
     private let activityIndikator = ActivityIndikator()
-    private let navigation = UINavigationItem()
-    private let time = 0.5
-    
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        return collectionView
-    }()
-    
-//    private let tableView = UITableView(frame: .zero, style: .plain)
-    
-    
     private let tableView = TableView(frame: .zero, style: .plain).setupTableView()
-    
+    private let time = 0.5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +22,16 @@ class Episode: UIViewController {
         startAcitivityIndikator()
     }
     
-    
     override func viewDidLayoutSubviews() {
         setupConstraint()
     }
     
-    private func setup() {
+    func setup() {
         view.backgroundColor = .white
+        
         tableView.delegate = self
         tableView.dataSource = self
+        
         view.addSubview(tableView)
     }
     
@@ -57,46 +45,19 @@ class Episode: UIViewController {
         ])
     }
     
-    private func takeData(_ url: String = FirstPageUrl.episodes.rawValue) {
+    private func takeData(_ url: String = FirstPageUrl.locations.rawValue) {
         NetworkManager().fetchPage(str: url) { data  in
-            if let decodeData: EpisodesModel = NetworkManager().decodeData(data, into: EpisodesModel.self) {
+            if let decodeData: LocationsModel = NetworkManager().decodeData(data, into: LocationsModel.self) {
                 self.data = decodeData
+                print(decodeData)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    self.setupBarButtomItem()
+//                    self.setupBarButtomItem()
                     DispatchQueue.main.asyncAfter(deadline: .now() + self.time, execute: {
                         self.activityIndikator.activate(.off)
                     })
                 }
             }
-        }
-    }
-    
-//    @objc func nextPage() {
-//        startAcitivityIndikator()
-//        guard let next = self.data?.info.next else { return }
-//        prevOrNextPage(next)
-//        coollectionViewScrollTop()
-//    }
-//
-//    @objc func prevPage() {
-//        startAcitivityIndikator()
-//        guard let prev = self.data?.info.prev else { return }
-//        prevOrNextPage(prev)
-//        coollectionViewScrollTop()
-//    }
-    
-    private func setupBarButtomItem() {
-        switch (data?.info.prev, data?.info.next) {
-        case (data?.info.prev, _) where data?.info.prev == nil:
-            navigation.rightBarButtonItem?.isHidden = false
-            navigation.leftBarButtonItem?.isHidden = true
-        case (_, data?.info.next) where data?.info.next == nil:
-            navigation.rightBarButtonItem?.isHidden = true
-            navigation.leftBarButtonItem?.isHidden = false
-        default:
-            navigation.rightBarButtonItem?.isHidden = false
-            navigation.leftBarButtonItem?.isHidden = false
         }
     }
     

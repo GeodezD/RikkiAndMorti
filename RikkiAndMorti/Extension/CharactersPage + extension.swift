@@ -7,23 +7,23 @@
 
 import UIKit
 
-extension Characters: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CharactersPage: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          data?.results.count ?? 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCustomCell", for: indexPath)
         if let data {
-            (cell as? CustomCellCharacters)?.setName(with: "\(data.results[indexPath.item].name)")
-            (cell as? CustomCellCharacters)?.setImage(with: "\(data.results[indexPath.item].image)")
+            (cell as? CollectionViewCustomCell)?.setName(with: "\(data.results[indexPath.item].name)")
+            (cell as? CollectionViewCustomCell)?.setImage(with: "\(data.results[indexPath.item].image)")
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.item)")
-        let viewCell = CharacterViewCell()
+        let viewCell = Character()
         viewCell.indexPathCell = indexPath.item
         navigationController?.pushViewController(viewCell, animated: true)
     }

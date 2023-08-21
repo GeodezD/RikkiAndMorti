@@ -1,13 +1,13 @@
 //
-//  EpisodeViewCell.swift
+//  Location.swift
 //  RikkiAndMorti
 //
-//  Created by Дмитро Сегейда on 03.08.2023.
+//  Created by Дмитро Сегейда on 17.08.2023.
 //
 
 import UIKit
 
-class EpisodeViewCell: UIViewController {
+class Location: UIViewController {
     
     var indexPathCelltable: Int?
     var arrayCharactersData = [ResultsCharacters?]()
@@ -50,7 +50,6 @@ class EpisodeViewCell: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupViewsConstraints()
-//
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,9 +64,8 @@ class EpisodeViewCell: UIViewController {
         let back = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(prevPage))
         self.navigation.leftBarButtonItem = back
         
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(CustomCellCharacters.self, forCellWithReuseIdentifier: "cell")
+  
+        collectionView.register(CollectionViewCustomCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.backgroundColor = .systemGray6
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         layout.itemSize = .init(width: 175, height: 200)
@@ -128,3 +126,4 @@ class EpisodeViewCell: UIViewController {
     
     
 }
+

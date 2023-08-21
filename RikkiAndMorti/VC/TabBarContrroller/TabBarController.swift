@@ -16,9 +16,9 @@ final class TabBarController: UITabBarController {
     }
 
     private func setUpTabs() {
-        let vc1 = Characters()
-        let vc2 = Location()
-        let vc3 = Episode()
+        let vc1 = CharactersPage()
+        let vc2 = LocationsPage()
+        let vc3 = EpisodesPage()
         let vc4 = SettingViewController()
         
         let nav1 = UINavigationController(rootViewController: vc1)

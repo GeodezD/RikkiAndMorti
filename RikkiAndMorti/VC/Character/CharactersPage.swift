@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Characters: UIViewController {
+class CharactersPage: UIViewController {
     
     var data: CharactersModel?
     private let activityIndikator = ActivityIndikator()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension EpisodeViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension Episode: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let data: EpisodesModel = NetworkManager().returnDataFromUserDafaults(into: EpisodesModel.self) {
@@ -21,8 +21,8 @@ extension EpisodeViewCell: UICollectionViewDelegate, UICollectionViewDataSource 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
         if let data = arrayCharactersData[indexPath.item] {
-            (cell as? CustomCellCharacters)?.setName(with: "\(data.name)")
-            (cell as? CustomCellCharacters)?.setImage(with: "\(data.image)")
+            (cell as? CollectionViewCustomCell)?.setName(with: "\(data.name)")
+            (cell as? CollectionViewCustomCell)?.setImage(with: "\(data.image)")
         }
         return cell
     }

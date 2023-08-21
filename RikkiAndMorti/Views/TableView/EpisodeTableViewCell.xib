@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell alpha="0.10000000000000001" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="EpisodeTableViewCell" rowHeight="236" id="KGk-i7-Jjw" customClass="EpisodeTableViewCell" customModule="RikkiAndMorti">
+        <tableViewCell alpha="0.10000000000000001" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="EpisodeTableViewCell" rowHeight="236" id="KGk-i7-Jjw" customClass="EpisodeTableViewCell" customModule="RikkiAndMorti" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="236"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">

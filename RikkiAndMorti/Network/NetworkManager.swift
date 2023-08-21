@@ -40,7 +40,7 @@ final class NetworkManager: NetworkDelegate {
     func decodeData<T: Decodable>(_ data: Data, into type: T.Type) -> T? {
         let decoder = JSONDecoder()
         do {
-            if type is EpisodesModel.Type {
+            if type is EpisodesModel.Type || type is ResultsEpisodes.Type {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
             }
             let decodedData = try decoder.decode(type, from: data)
@@ -53,6 +53,8 @@ final class NetworkManager: NetworkDelegate {
                 UserDefaults.standard.set(data, forKey: "Locations")
             case is ResultsCharacters.Type:
                 UserDefaults.standard.set(data, forKey: "Character")
+            case is ResultsEpisodes.Type:
+                UserDefaults.standard.set(data, forKey: "ResultsEpisodes")
             default:
                 print("Fails")
                 break
@@ -86,6 +88,18 @@ final class NetworkManager: NetworkDelegate {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 guard let forceData = data else { fatalError("I'm don't have DATA") }
                 returnData = try decoder.decode(EpisodesModel.self, from: forceData) as? T
+            } catch {
+                print("error: ", error)
+            }
+            return returnData
+            
+        case is ResultsEpisodes.Type:
+            
+            let data = UserDefaults.standard.data(forKey: "ResultsEpisodes")
+            do {
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                guard let forceData = data else { fatalError("I'm don't have DATA") }
+                returnData = try decoder.decode(ResultsEpisodes.self, from: forceData) as? T
             } catch {
                 print("error: ", error)
             }
