@@ -44,7 +44,7 @@ extension EpisodesPage: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.item)")
-        let viewCell = Episode()
+        let viewCell = CharactersInEpisode()
         viewCell.indexPathCelltable = indexPath.item
         
         let activityIndikator = ActivityIndikator()

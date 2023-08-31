@@ -13,7 +13,6 @@ enum ActivateIndikatior {
 
 class ActivityIndikator {
 
-
     private let activityIndikator = UIActivityIndicatorView()
     private let view = UIView()
     private let imageView = UIImageView()
