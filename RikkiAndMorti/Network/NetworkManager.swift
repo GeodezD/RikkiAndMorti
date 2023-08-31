@@ -7,10 +7,21 @@
 
 import Foundation
 
-enum FirstPageUrl: String {
-    case characters = "https://rickandmortyapi.com/api/character/?page=1"
-    case episodes = "https://rickandmortyapi.com/api/episode/?page=1"
-    case locations = "https://rickandmortyapi.com/api/location/?page=1"
+enum FirstPageUrl {
+    case characters
+    case episodes
+    case locations
+    
+    var url: String {
+        switch self {
+        case .characters:
+            return "https://rickandmortyapi.com/api/character/?page=1"
+        case .episodes:
+            return "https://rickandmortyapi.com/api/episode/?page=1"
+        case .locations:
+            return "https://rickandmortyapi.com/api/location/?page=1"
+        }
+    }
 }
 
 final class NetworkManager: NetworkDelegate {
@@ -40,31 +51,68 @@ final class NetworkManager: NetworkDelegate {
     func decodeData<T: Decodable>(_ data: Data, into type: T.Type) -> T? {
         let decoder = JSONDecoder()
         do {
-            if type is EpisodesModel.Type || type is ResultsEpisodes.Type {
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-            }
-            let decodedData = try decoder.decode(type, from: data)
             switch type {
             case is CharactersModel.Type:
+                let decodedData = try decoder.decode(type, from: data)
                 UserDefaults.standard.set(data, forKey: "Characters")
+                return decodedData
             case is EpisodesModel.Type:
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let decodedData = try decoder.decode(type, from: data)
                 UserDefaults.standard.set(data, forKey: "Episodes")
+                return decodedData
             case is LocationsModel.Type:
+                let decodedData = try decoder.decode(type, from: data)
                 UserDefaults.standard.set(data, forKey: "Locations")
+                return decodedData
             case is ResultsCharacters.Type:
+                let decodedData = try decoder.decode(type, from: data)
                 UserDefaults.standard.set(data, forKey: "Character")
+                return decodedData
             case is ResultsEpisodes.Type:
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let decodedData = try decoder.decode(type, from: data)
                 UserDefaults.standard.set(data, forKey: "ResultsEpisodes")
+                return decodedData
             default:
                 print("Fails")
                 break
             }
-            return decodedData
+            return nil
         } catch {
             print("Decoding error: \(error)")
             return nil
         }
     }
+    
+//    func decodeData<T: Decodable>(_ data: Data, into type: T.Type) -> T? {
+//        let decoder = JSONDecoder()
+//        do {
+//            if type is EpisodesModel.Type || type is ResultsEpisodes.Type {
+//                decoder.keyDecodingStrategy = .convertFromSnakeCase
+//            }
+//            let decodedData = try decoder.decode(type, from: data)
+//            switch type {
+//            case is CharactersModel.Type:
+//                UserDefaults.standard.set(data, forKey: "Characters")
+//            case is EpisodesModel.Type:
+//                UserDefaults.standard.set(data, forKey: "Episodes")
+//            case is LocationsModel.Type:
+//                UserDefaults.standard.set(data, forKey: "Locations")
+//            case is ResultsCharacters.Type:
+//                UserDefaults.standard.set(data, forKey: "Character")
+//            case is ResultsEpisodes.Type:
+//                UserDefaults.standard.set(data, forKey: "ResultsEpisodes")
+//            default:
+//                print("Fails")
+//                break
+//            }
+//            return decodedData
+//        } catch {
+//            print("Decoding error: \(error)")
+//            return nil
+//        }
+//    }
     
     func returnDataFromUserDafaults<T>(into type: T.Type) -> T? {
         var returnData: T?

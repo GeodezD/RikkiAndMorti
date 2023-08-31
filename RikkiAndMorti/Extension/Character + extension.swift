@@ -11,7 +11,7 @@ extension Character: UICollectionViewDataSource, UICollectionViewDelegate, UICol
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let indexPathCell else { fatalError() }
-        return myData.results[indexPathCell].episode.count + 12
+        return data.results[indexPathCell].episode.count + 12
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -24,40 +24,40 @@ extension Character: UICollectionViewDataSource, UICollectionViewDelegate, UICol
         switch indexPath.item {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath)
-            (cell as? ImageCollectionViewCell)?.setImage(with: "\(myData.results[indexPathCell].image)")
+            (cell as? ImageCollectionViewCell)?.setImage(with: "\(data.results[indexPathCell].image)")
             return cell
         case 1:
             textCollectionViewCell?.setText(text: "Name:")
         case 2:
-            textCollectionViewCell?.setText(text: "\(myData.results[indexPathCell].name)")
+            textCollectionViewCell?.setText(text: "\(data.results[indexPathCell].name)")
         case 3:
             textCollectionViewCell?.setText(text: "STATUS:")
         case 4:
-            textCollectionViewCell?.setText(text: "\(myData.results[indexPathCell].status)")
+            textCollectionViewCell?.setText(text: "\(data.results[indexPathCell].status)")
         case 5:
             textCollectionViewCell?.setText(text: "GENDER:")
         case 6:
-            textCollectionViewCell?.setText(text: "\(myData.results[indexPathCell].gender)")
+            textCollectionViewCell?.setText(text: "\(data.results[indexPathCell].gender)")
         case 7:
             textCollectionViewCell?.setText(text: "SPECIES:")
         case 8:
-            textCollectionViewCell?.setText(text: "\(myData.results[indexPathCell].species)")
+            textCollectionViewCell?.setText(text: "\(data.results[indexPathCell].species)")
         case 9:
             textCollectionViewCell?.setText(text: "LOCATION:")
         case 10:
-            textCollectionViewCell?.setText(text: "\(myData.results[indexPathCell].origin.name)")
+            textCollectionViewCell?.setText(text: "\(data.results[indexPathCell].origin.name)")
         case 11:
             textCollectionViewCell?.setText(text: "EPISODE:")
         default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextViewCollectionViewCell", for: indexPath)
-            (cell as? TextViewCollectionViewCell)?.fetchData(myData.results[indexPathCell].episode[indexPath.item - 12])
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCollectionViewCell", for: indexPath)
+            cell.backgroundColor = .systemGray5
+            (cell  as? TextCollectionViewCell)?.fetchData(data.results[indexPathCell].episode[indexPath.item - 12])
             return cell
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         switch indexPath.item {
         case 0:
             return CGSize(width: 300, height: 300)
@@ -66,6 +66,5 @@ extension Character: UICollectionViewDataSource, UICollectionViewDelegate, UICol
         default:
             return CGSize(width: collectionView.frame.width, height: 75)
         }
-        return CGSize(width: collectionView.frame.width, height: 0)
     }
 }

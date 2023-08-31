@@ -20,4 +20,16 @@ class TextCollectionViewCell: UICollectionViewCell {
             label.text = text
         }
     }
+    
+    func fetchData(_ url: String) {
+         NetworkManager().fetchPage(str: url) { data in
+            if let decodeData: ResultsEpisodes = NetworkManager().decodeData(data, into: ResultsEpisodes.self) {
+                DispatchQueue.main.async {
+                    self.label.text? = "Episode: \(decodeData.episode)\n"
+                    self.label.text? += "Name: \(decodeData.name)\n"
+                    self.label.text? += "Aired: \(decodeData.airDate)"
+                }
+            }
+        }
+    }
 }

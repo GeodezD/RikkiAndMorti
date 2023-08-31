@@ -1,69 +1,61 @@
 //
-//  LocationCharacter.swift
+//  LocationsPage.swift
 //  RikkiAndMorti
 //
-//  Created by Дмитро Сегейда on 19.07.2023.
+//  Created by Дмитро Сегейда on 30.08.2023.
 //
 
 import UIKit
 
-class LocationsPage: UIViewController {
+class LocationsPage: ViewControllerWithTableView {
     var data: LocationsModel?
-    private let activityIndikator = ActivityIndikator()
-    private let tableView = TableView(frame: .zero, style: .plain).setupTableView()
-    private let time = 0.5
+    lazy private var numberPage = 1
+    let textTitle = "Locations page:"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
-        DispatchQueue.global(qos: .userInteractive).sync {
-            self.takeData()
-        }
         startAcitivityIndikator()
+        data = takeData(FirstPageUrl.locations.url, type: LocationsModel.self)
+        if let data {
+            setupBarButtomItem(prev: data.info.prev, next: data.info.next)
+            navigationTitle(title: "\(textTitle) \(numberPage)/\(data.info.pages)")
+        }
     }
     
     override func viewDidLayoutSubviews() {
-        setupConstraint()
+        super.viewDidLayoutSubviews()
     }
     
-    func setup() {
-        view.backgroundColor = .white
+    override func setup() {
+        super.setup()
         
-        tableView.delegate = self
+        tableView.delegate  = self
         tableView.dataSource = self
         
         view.addSubview(tableView)
     }
     
-    func setupConstraint() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12)
-        ])
-    }
-    
-    private func takeData(_ url: String = FirstPageUrl.locations.rawValue) {
-        NetworkManager().fetchPage(str: url) { data  in
-            if let decodeData: LocationsModel = NetworkManager().decodeData(data, into: LocationsModel.self) {
-                self.data = decodeData
-                print(decodeData)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-//                    self.setupBarButtomItem()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + self.time, execute: {
-                        self.activityIndikator.activate(.off)
-                    })
-                }
-            }
+    override func nextPage() {
+        startAcitivityIndikator()
+        guard let next = self.data?.info.next else { return }
+        data = takeData(next, type: LocationsModel.self)
+        numberPage += 1
+        if let data {
+            navigationTitle(title: "\(textTitle) \(numberPage)/\(data.info.pages)")
+            setupBarButtomItem(prev: data.info.prev, next: data.info.next)
         }
+        tableView.reloadData()
     }
     
-    func startAcitivityIndikator() {
-        activityIndikator.takeFrame(frame: view.frame)
-        view.addSubview(activityIndikator.setupView())
-        activityIndikator.activate(.on)
+    override func prevPage() {
+        startAcitivityIndikator()
+        guard let prev = self.data?.info.prev else { return }
+        data = takeData(prev, type: LocationsModel.self)
+        numberPage -= 1
+        if let data {
+            navigationTitle(title: "\(textTitle) \(numberPage)/\(data.info.pages)")
+            setupBarButtomItem(prev: data.info.prev, next: data.info.next)
+        }
+        tableView.reloadData()
     }
 }

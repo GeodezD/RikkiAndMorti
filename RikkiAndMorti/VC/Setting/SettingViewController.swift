@@ -67,13 +67,10 @@ class SettingViewController: UIViewController {
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-//        present(ColorPicker(), animated: true)
 
         let pickerViewController = UIColorPickerViewController()
             pickerViewController.selectedColor = setColor
-
             pickerViewController.delegate = self
-
             present(pickerViewController, animated: true, completion: nil)
     }
     
